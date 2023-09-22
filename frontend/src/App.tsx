@@ -1,3 +1,4 @@
+import React from 'react'
 import Sample from './components/SampleComponent/Sample'
 
 function App() {
