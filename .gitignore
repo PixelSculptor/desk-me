@@ -49,7 +49,7 @@ psd
 thumb
 sketch
 
-.env
+*/**/.env
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#react
 
