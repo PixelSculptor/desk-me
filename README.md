@@ -25,3 +25,16 @@ If you are developing a production application, we recommend updating the config
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+## Color palette - description:
+- #4CAF50 (teal blue) - for buttons, call-to-action elements, and headings,
+- #F4A261 (light orange) - for secondary buttons, highlights, and important notifications,
+- #F2F2F2 (light gray) - for the background to provide a clean and unobtrusive canvas for content,
+- #333333 (dark gray) - for text, labels, and descriptions, ensuring readability and contrast with the background,
+- #E76F51 (terracotta) - for critical callouts, notifications, and icons to draw attention,
+- #FFD700 (gold) - for exceptional elements like selected dates or outstanding bookings. It adds a touch of elegance,
+- #FFFFFF (white) for sections with minimal distraction, such as headers and footers,
+- #CCCCCC (light gray) - for borders and dividers to maintain a sense of structure
+- #E63946 (red) - error color,
+- #4CAF50 (green) - success color
