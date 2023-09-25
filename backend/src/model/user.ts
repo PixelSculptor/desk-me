@@ -21,7 +21,6 @@ const userSchema = new Schema<IUser>({
     },
     token: {
         type: String,
-        required: true,
     },
 });
 
