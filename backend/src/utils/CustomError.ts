@@ -1,4 +1,11 @@
-type HttpClientStatusErrorCodes = 400 | 401 | 403 | 404 | 405 | 408 | 409;
+export type HttpClientStatusErrorCodes =
+    | 400
+    | 401
+    | 403
+    | 404
+    | 405
+    | 408
+    | 409;
 
 type HttpClientErrorMessages = {
     400: 'Bad Request';
@@ -13,4 +20,5 @@ type HttpClientErrorMessages = {
 export type CustomError<T extends HttpClientStatusErrorCodes> = {
     code: T;
     message: HttpClientErrorMessages[T];
+    cause?: string;
 };
