@@ -27,5 +27,3 @@ export function InputField({
         </div>
     );
 }
-
-export default InputField;
