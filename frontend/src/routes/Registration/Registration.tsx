@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+import { RegistrationForm } from '../../components/RegistrationForm/RegistrationForm';
 
 function Registration() {
     return (

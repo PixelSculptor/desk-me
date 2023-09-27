@@ -1,29 +1,29 @@
-import React, { ChangeEvent, ComponentPropsWithRef } from 'react';
-import { InputTypes } from '../../types/InputTypes';
+import React from 'react';
 
-type InputFieldProps = {
-    label: string;
-    type?: InputTypes;
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-} & ComponentPropsWithRef<'input'>;
+import { InputFieldProps } from './InputField.types';
 
-function InputField({
+export function InputField({
     label,
     id,
     type = 'text',
     placeholder,
     required,
+    error,
     onChange,
 }: InputFieldProps) {
     return (
         <div className="inputField">
-            <label htmlFor={id}>{label}</label>
+            <label className="inputField__label" htmlFor={id}>
+                {label}
+            </label>
             <input
+                className="inputField__input"
                 type={type}
                 onChange={onChange}
                 required={required}
                 placeholder={placeholder}
             />
+            <h6 className="inputField__errorMessage">{error?.message}</h6>
         </div>
     );
 }
