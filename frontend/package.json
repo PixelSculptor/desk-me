@@ -10,6 +10,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@hookform/resolvers": "^3.3.1",
         "classnames": "^2.3.2",
         "husky": "^8.0.3",
         "prettier-plugin-organize-attributes": "^1.0.0",
@@ -17,7 +18,8 @@
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.46.2",
         "react-icons": "^4.11.0",
-        "react-router-dom": "^6.16.0"
+        "react-router-dom": "^6.16.0",
+        "zod": "^3.22.2"
     },
     "devDependencies": {
         "@types/react": "^18.2.15",

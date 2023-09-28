@@ -1,8 +1,8 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { RegistrationForm } from '../../components/RegistrationForm/RegistrationForm';
 
-function Registration() {
+import { RegistrationForm } from '@components/RegistrationForm/RegistrationForm';
+
+export function Registration() {
     return (
         <section className="registrationPanel">
             <h2 className="registrationPanel__heading">
@@ -15,5 +15,3 @@ function Registration() {
         </section>
     );
 }
-
-export default Registration;

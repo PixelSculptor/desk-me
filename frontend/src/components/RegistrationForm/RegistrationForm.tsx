@@ -1,46 +1,28 @@
-import React, { useState, forwardRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { InputField } from '../InputField/InputField';
-import { Button } from '../Button/Button';
+import { InputField } from '@components/InputField/InputField';
+import { Button } from '@components/Button/Button';
 
-import { RegisterFieldsTypes } from './RegisterFieldsTypes';
-
-const accountFields: RegisterFieldsTypes = {
-    email: '',
-    password: '',
-    name: '',
-    surname: '',
-    confirmPassword: '',
-};
+import { TSignUpSchema, signUpSchema } from './RegisterFieldsTypes';
 
 export const RegistrationForm = function RegistrationForm() {
-    // const [inputFields, setInputFields] =
-    //     useState<UserCredentialTypes>(accountFields);
     const {
         register,
         handleSubmit,
         reset,
         formState: { errors, isSubmitting },
-    } = useForm<RegisterFieldsTypes>();
+    } = useForm<TSignUpSchema>({
+        resolver: zodResolver(signUpSchema),
+    });
     /* eslint-disable @typescript-eslint/no-unused-vars */
     const navigate = useNavigate();
-    const [isSigning, setIsSignup] = useState<RegisterFieldsTypes>();
 
-    // const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    //     const { name: fieldName, value: fieldValue } = event.target;
-    //     console.log(`Fieldname: ${fieldName} FieldValue: ${fieldValue}`);
-    //     setInputFields({ ...inputFields, [fieldName]: fieldValue });
-    // };
-
-    // const handleSignUp = async () => {
-    //     const user = await UseSignUp({ ...inputFields });
-    // }
-
-    const onSubmit: SubmitHandler<RegisterFieldsTypes> = async (data) => {
+    const onSubmit = async (data: TSignUpSchema) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         console.log(data);
+        reset();
     };
     return (
         <section className="registration">
@@ -79,7 +61,7 @@ export const RegistrationForm = function RegistrationForm() {
                     error={errors.password}
                 />
                 <InputField
-                    id="repeatPassword"
+                    id="confirmPassword"
                     label="Powtórz hasło"
                     type="password"
                     placeholder="********"

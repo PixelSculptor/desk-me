@@ -1,8 +1,7 @@
-import React from 'react';
-
+import { FieldValues } from 'react-hook-form';
 import { InputFieldProps } from './InputField.types';
 
-export function InputField({
+export function InputField<T extends FieldValues>({
     label,
     id,
     type = 'text',
@@ -10,7 +9,7 @@ export function InputField({
     required,
     error,
     register,
-}: InputFieldProps<typeof register>) {
+}: InputFieldProps<T>) {
     return (
         <div className="inputField">
             <label className="inputField__label" htmlFor={id}>
