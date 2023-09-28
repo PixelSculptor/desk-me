@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { InputField } from '@components/InputField/InputField';
 import { Button } from '@components/Button/Button';
 
-import { TSignUpSchema, signUpSchema } from './RegisterFieldsTypes';
+import { TSignUpSchema, signUpSchema } from './RegisterForm.types';
 
 export const RegistrationForm = function RegistrationForm() {
     const {

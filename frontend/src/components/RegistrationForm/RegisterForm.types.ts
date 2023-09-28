@@ -1,4 +1,3 @@
-import { FieldValue } from 'react-hook-form';
 import { z } from 'zod';
 
 export const signUpSchema = z
