@@ -12,6 +12,8 @@
     "dependencies": {
         "@hookform/resolvers": "^3.3.1",
         "classnames": "^2.3.2",
+        "dotenv": "^16.3.1",
+        "fetch": "^1.1.0",
         "husky": "^8.0.3",
         "prettier-plugin-organize-attributes": "^1.0.0",
         "react": "^18.2.0",

@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { HttpClientStatusErrorCodes, CustomError } from '../utils/CustomError';
+import { HttpClientStatusErrorCodes, CustomError } from './CustomError';
 
 type HttpSuccessStatusCodes = 200 | 201 | 202 | 204;
 
@@ -8,11 +8,11 @@ type CustomPayload<T> = {
     body: T;
 };
 export interface CustomResponse<T> extends Response {
-    // eslint-disable-next-line
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     status: (
         status: HttpSuccessStatusCodes | HttpClientStatusErrorCodes
     ) => this;
-    // eslint-disable-next-line
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     send: (
         body: CustomPayload<T> | CustomError<HttpClientStatusErrorCodes>
     ) => this;

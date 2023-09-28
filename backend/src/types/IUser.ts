@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 export interface IUser {
     email: string;
     name: string;
@@ -5,3 +7,22 @@ export interface IUser {
     password: string;
     token: string;
 }
+
+export type IUserBody = Omit<IUser, 'token'> & {
+    confirmPassword: string;
+};
+
+export const signUpSchema = z
+    .object({
+        name: z.string(),
+        surname: z.string(),
+        email: z.string().email(),
+        password: z
+            .string()
+            .min(10, 'Hasło powinno mieć co najmniej 10 znaków'),
+        confirmPassword: z.string(),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+        message: 'Hasła muszą się zgadzać',
+        path: ['confirmPassword'],
+    });

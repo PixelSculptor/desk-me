@@ -20,8 +20,29 @@ export const RegistrationForm = function RegistrationForm() {
     const navigate = useNavigate();
 
     const onSubmit = async (data: TSignUpSchema) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        console.log(data);
+        const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/auth/register`,
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: data.name,
+                    surname: data.surname,
+                    email: data.email,
+                    password: data.password,
+                    confirmPassword: data.confirmPassword,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        const responseData = await response.json();
+        console.log(responseData);
+        if (!response.ok) {
+            // alert("Failed")
+        }
+        // console.log(responseData);
         reset();
     };
     return (
