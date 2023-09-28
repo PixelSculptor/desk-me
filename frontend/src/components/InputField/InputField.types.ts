@@ -1,10 +1,11 @@
 import { ChangeEvent, ComponentPropsWithRef } from 'react';
 import { InputTypes } from '../../types/InputTypes';
-import { FieldError } from 'react-hook-form';
+import { FieldValues, FieldError, UseFormRegister } from 'react-hook-form';
 
-export type InputFieldProps = {
+export type InputFieldProps<T extends FieldValues> = {
     label: string;
     type?: InputTypes;
-    error?: FieldError;
-    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    id: string;
+    error: FieldError | undefined;
+    register: UseFormRegister<T>;
 } & ComponentPropsWithRef<'input'>;

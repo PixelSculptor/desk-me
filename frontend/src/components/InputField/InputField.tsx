@@ -9,8 +9,8 @@ export function InputField({
     placeholder,
     required,
     error,
-    onChange,
-}: InputFieldProps) {
+    register,
+}: InputFieldProps<typeof register>) {
     return (
         <div className="inputField">
             <label className="inputField__label" htmlFor={id}>
@@ -19,11 +19,13 @@ export function InputField({
             <input
                 className="inputField__input"
                 type={type}
-                onChange={onChange}
+                {...register(id)}
                 required={required}
                 placeholder={placeholder}
             />
-            <h6 className="inputField__errorMessage">{error?.message}</h6>
+            {error && (
+                <h6 className="inputField__errorMessage">{error.message}</h6>
+            )}
         </div>
     );
 }
