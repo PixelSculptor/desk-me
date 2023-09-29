@@ -23,7 +23,7 @@ export const register = async (
                 .send({
                     code: 400,
                     message: 'Bad Request',
-                    cause: 'All inputs are required',
+                    cause: 'Wszystkie pola są wymagane',
                 })
                 .end();
         }
@@ -36,7 +36,7 @@ export const register = async (
                 .send({
                     code: 409,
                     message: 'Conflict',
-                    cause: 'User with this email already exists',
+                    cause: 'Użytkownik o podanym adresie e-mail już istnieje',
                 })
                 .end();
         }
@@ -53,7 +53,7 @@ export const register = async (
         await user.save();
 
         if (!user) {
-            throw new Error('Cannot create account');
+            throw new Error('Nie można było utworzyć konta');
         }
 
         // create JWT token
@@ -81,7 +81,7 @@ export const register = async (
             .json({
                 code: 403,
                 message: 'Unauthorized',
-                cause: 'Cannot create account',
+                cause: 'Nie można było utworzyć konta',
             })
             .end();
     }
