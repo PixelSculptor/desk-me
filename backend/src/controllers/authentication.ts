@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import { Error } from 'mongoose';
 import { CustomRequest } from '../types/CustomRequest';
 import { CustomResponse } from '../types/CustomResponse';
-import { IUser, IUserBody, signUpSchema } from '../types/IUser';
+import { IUserResponse, IUserBody, signUpSchema } from '../types/UserTypes';
 import { User } from '../model/user';
 import { hashInputText } from '../utils/encrypt';
 
@@ -11,7 +11,7 @@ dotenv.config();
 
 export const register = async (
     req: CustomRequest<IUserBody>,
-    res: CustomResponse<IUser>
+    res: CustomResponse<IUserResponse>
 ) => {
     try {
         const { email, name, password, surname } = req.body;
@@ -70,10 +70,17 @@ export const register = async (
 
         user.token = jwtToken;
 
+        const userResponse: IUserResponse = {
+            email: user.email,
+            name: user.name,
+            surname: user.surname,
+            token: user.token,
+        };
+
         res.status(201)
             .send({
                 code: 201,
-                body: user,
+                body: userResponse,
             })
             .end();
     } catch (err: unknown) {

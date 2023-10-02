@@ -18,6 +18,10 @@
                 cursor: pointer;
                 text-decoration: underline;
             }
+            &:focus-visible {
+                outline: utils.$secondary-color solid 0.288rem;
+                border-radius: 0.188rem;
+            }
         }
     }
 }

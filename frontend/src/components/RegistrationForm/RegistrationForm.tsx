@@ -42,7 +42,7 @@ export const RegistrationForm = function RegistrationForm() {
         const responseData = await response.json();
         console.log(responseData);
         if (!response.ok) {
-            // alert("Failed")
+            alert('Failed');
         }
         // console.log(responseData);
         reset();
