@@ -2,6 +2,11 @@
 
 .inputField {
     width: 100%;
+    @include utils.display_flex(
+        column,
+        $align_items: flex-start,
+        $gap: 0.625rem
+    );
 
     &__label {
         font-weight: 600;
@@ -27,5 +32,6 @@
 
     &__errorMessage {
         color: utils.$error-color;
+        align-self: center;
     }
 }

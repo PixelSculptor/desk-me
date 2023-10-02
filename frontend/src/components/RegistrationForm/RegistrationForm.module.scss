@@ -2,6 +2,7 @@
 
 .registration {
     width: 100%;
+    max-width: 500px;
     &__form {
         @include utils.display_flex(column);
         height: 100%;
