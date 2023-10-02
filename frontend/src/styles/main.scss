@@ -17,38 +17,62 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: 400;
-    line-height: 1.15;
+    font-weight: 500;
+    line-height: 1.2;
 }
 
 h1 {
-    font-size: utils.$text-size-5xl;
+    font-size: utils.$text-size-head1;
+    font-size: clamp(3.5rem, 10vw, utils.$text-size-head1);
+    letter-spacing: -1.5px;
 }
 
 h2 {
-    font-size: utils.$text-size-4xl;
+    font-size: utils.$text-size-head2;
+    font-size: clamp(3.05rem, 10vw, utils.$text-size-head2);
+    letter-spacing: -0.5px;
 }
 
 h3 {
-    font-size: utils.$text-size-3xl;
+    font-size: utils.$text-size-head3;
+    font-size: clamp(2.725rem, 10vw, utils.$text-size-head3);
+    letter-spacing: 0px;
 }
 
 h4 {
-    font-size: utils.$text-size-2xl;
+    font-size: utils.$text-size-head4;
+    font-size: clamp(2.425rem, 10vw, utils.$text-size-head4);
+    letter-spacing: 0.25px;
 }
 
 h5 {
-    font-size: utils.$text-size-1xl;
+    font-size: utils.$text-size-head5;
+    font-size: clamp(1.225rem, 10vw, utils.$text-size-head5);
+    letter-spacing: 0px;
 }
 
 h6 {
-    font-size: utils.$text-size-xl;
+    font-size: utils.$text-size-head6;
+    font-size: clamp(1.025rem, 10vw, utils.$text-size-head6);
+    letter-spacing: 0.15px;
 }
 
 p {
-    font-size: utils.$text-size-md;
+    font-size: clamp(0.875rem, 5vw, utils.$text-size-body);
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    font-weight: 400;
 }
 
-small {
-    font-size: utils.$text-size-sm;
+small,
+caption {
+    font-size: utils.$text-size-caption;
+    font-size: clamp(0.525rem, 2vw, utils.$text-size-caption);
+    letter-spacing: 0.4px;
+}
+
+button {
+    font-size: utils.$text-size-button;
+    font-size: clamp(0.625rem, 3vw, utils.$text-size-button);
+    letter-spacing: 1.25px;
 }
