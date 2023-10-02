@@ -1,6 +1,9 @@
 import { FieldValues } from 'react-hook-form';
 import { InputFieldProps } from './InputField.types';
 
+import styles from './InputField.module.scss';
+import classNames from 'classnames';
+
 export function InputField<T extends FieldValues>({
     label,
     id,
@@ -11,12 +14,12 @@ export function InputField<T extends FieldValues>({
     register,
 }: InputFieldProps<T>) {
     return (
-        <div className="inputField">
-            <label className="inputField__label" htmlFor={id}>
+        <div className={classNames(styles['inputField'])}>
+            <label className={styles['inputField__label']} htmlFor={id}>
                 {label}
             </label>
             <input
-                className="inputField__input"
+                className={styles['inputField__input']}
                 type={type}
                 {...register(id)}
                 required={required}

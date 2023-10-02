@@ -2,14 +2,13 @@
 
 .registrationPanel {
     @include utils.display_flex(column, center, space-around);
-    height: 100vh;
-    height: 50dvh;
-    border: 2px solid utils.$accent-color;
+    gap: 2rem;
+    height: 80vh;
+    height: 80dvh;
     padding: 1rem 2rem;
 
     &__heading {
         text-align: center;
-        color: utils.$primary-color;
     }
 
     &__redirectLogin {

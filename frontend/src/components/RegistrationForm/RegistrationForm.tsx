@@ -7,6 +7,8 @@ import { Button } from '@components/Button/Button';
 
 import { TSignUpSchema, signUpSchema } from './RegisterForm.types';
 
+import styles from './RegistrationForm.module.scss';
+
 export const RegistrationForm = function RegistrationForm() {
     const {
         register,
@@ -46,15 +48,16 @@ export const RegistrationForm = function RegistrationForm() {
         reset();
     };
     return (
-        <section className="registration">
+        <section className={styles['registration']}>
             <form
-                className="registration__form"
+                className={styles['registration__form']}
                 onSubmit={handleSubmit(onSubmit)}
             >
                 <InputField
                     id="name"
                     label="Imię"
                     placeholder="Adam"
+                    required
                     register={register}
                     error={errors.name}
                 />
@@ -62,6 +65,7 @@ export const RegistrationForm = function RegistrationForm() {
                     id="surname"
                     label="Nazwisko"
                     placeholder="Kowalski"
+                    required
                     register={register}
                     error={errors.surname}
                 />
@@ -70,6 +74,7 @@ export const RegistrationForm = function RegistrationForm() {
                     label="Adres E-Mail"
                     type="email"
                     placeholder="adam.kowalski@gmail.com"
+                    required
                     register={register}
                     error={errors.email}
                 />
@@ -78,6 +83,7 @@ export const RegistrationForm = function RegistrationForm() {
                     label="Hasło"
                     type="password"
                     placeholder="********"
+                    required
                     register={register}
                     error={errors.password}
                 />
@@ -86,6 +92,7 @@ export const RegistrationForm = function RegistrationForm() {
                     label="Powtórz hasło"
                     type="password"
                     placeholder="********"
+                    required
                     register={register}
                     error={errors.confirmPassword}
                 />

@@ -10,6 +10,7 @@ body {
     font-family: 'Poppins', 'Arial', sans-serif;
     background-color: utils.$background-color;
     color: utils.$text-color;
+    box-sizing: border-box;
 }
 
 h1,

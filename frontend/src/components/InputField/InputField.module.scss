@@ -1,0 +1,23 @@
+@use '../../styles/index.scss' as utils;
+
+.inputField {
+    width: 100%;
+
+    &__label {
+        font-weight: 600;
+
+        &:has(+ .inputField__input:required)::after {
+            content: '*';
+            color: utils.$error-color;
+        }
+    }
+
+    &__input {
+        position: relative;
+        font-size: 1.25rem;
+        width: 100%;
+        padding: 0.5rem;
+        border: 0.188rem solid utils.$primary-color;
+        border-radius: 0.313rem;
+    }
+}
