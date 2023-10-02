@@ -1,11 +1,11 @@
 @use '../../styles/index.scss' as utils;
 
 .registrationPanel {
-    @include utils.display_flex(column, center, space-around);
+    @include utils.display_flex(column, center, space-between);
     gap: 2rem;
     height: 80vh;
     height: 80dvh;
-    padding: 1rem 2rem;
+    padding: 0 2rem;
 
     &__heading {
         text-align: center;
