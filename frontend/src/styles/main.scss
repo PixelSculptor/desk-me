@@ -9,6 +9,7 @@ html {
 body {
     font-family: 'Poppins', 'Arial', sans-serif;
     background-color: utils.$background-color;
+    color: utils.$text-color;
 }
 
 h1,
@@ -29,7 +30,7 @@ h1 {
 
 h2 {
     font-size: utils.$text-size-head2;
-    font-size: clamp(3.05rem, 10vw, utils.$text-size-head2);
+    font-size: clamp(2.8rem, 5vw, utils.$text-size-head2);
     letter-spacing: -0.5px;
 }
 

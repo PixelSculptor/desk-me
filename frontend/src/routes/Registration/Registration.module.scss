@@ -1,0 +1,24 @@
+@use '../../styles/index.scss' as utils;
+
+.registrationPanel {
+    @include utils.display_flex(column, center, space-around);
+    height: 100vh;
+    height: 50dvh;
+    border: 2px solid utils.$accent-color;
+    padding: 1rem 2rem;
+
+    &__heading {
+        text-align: center;
+        color: utils.$primary-color;
+    }
+
+    &__redirectLogin {
+        a {
+            color: utils.$accent-color;
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+    }
+}
