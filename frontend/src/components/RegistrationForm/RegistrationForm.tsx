@@ -98,7 +98,8 @@ export const RegistrationForm = function RegistrationForm() {
                 />
                 <Button
                     disabled={isSubmitting}
-                    className="button-cmp"
+                    className={styles['button-cmp']}
+                    fullWidth
                     type="submit"
                 >
                     Zarejestruj się

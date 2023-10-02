@@ -8,15 +8,18 @@ export function Button({
     children,
     type,
     rounded = true,
+    fullWidth = false,
     disabled,
 }: ButtonProps) {
     const roundedButton = rounded ? '--rounded' : '';
+    const fullWidthButton = fullWidth ? '--fullWidth' : '';
     return (
         <button
             className={classNames(
                 styles[`button-cmp`],
                 styles[size],
-                styles[roundedButton]
+                styles[roundedButton],
+                styles[fullWidthButton]
             )}
             type={type}
             disabled={disabled}

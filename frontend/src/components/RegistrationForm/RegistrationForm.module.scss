@@ -2,7 +2,6 @@
 
 .registration {
     gap: 2rem;
-
     &__form {
         @include utils.display_flex(column);
     }
