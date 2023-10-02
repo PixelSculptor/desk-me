@@ -1,0 +1,6 @@
+@use '../../styles/index.scss' as utils;
+
+.errorMessage {
+    font-size: utils.$text-size-caption;
+    color: utils.$error-color;
+}

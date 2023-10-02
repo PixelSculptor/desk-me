@@ -8,3 +8,8 @@ export type UserCredentialTypes = {
 export type UserModelTypes = {
     token: string;
 } & UserCredentialTypes;
+
+export type UserResponse = {
+    token: string;
+    id: string;
+} & Omit<UserCredentialTypes, 'password'>;

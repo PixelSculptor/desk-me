@@ -71,18 +71,14 @@ export const register = async (
         user.token = jwtToken;
 
         const userResponse: IUserResponse = {
+            id: user.id,
             email: user.email,
             name: user.name,
             surname: user.surname,
             token: user.token,
         };
 
-        res.status(201)
-            .send({
-                code: 201,
-                body: userResponse,
-            })
-            .end();
+        res.status(201).send({ ...userResponse });
     } catch (err: unknown) {
         res.status(403)
             .json({

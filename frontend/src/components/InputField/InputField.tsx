@@ -3,6 +3,7 @@ import { InputFieldProps } from './InputField.types';
 
 import styles from './InputField.module.scss';
 import classNames from 'classnames';
+import { ErrorMessage } from '../Error/Error';
 
 export function InputField<T extends FieldValues>({
     label,
@@ -25,11 +26,7 @@ export function InputField<T extends FieldValues>({
                 required={required}
                 placeholder={placeholder}
             />
-            {error && (
-                <h6 className={styles['inputField__errorMessage']}>
-                    {error.message}
-                </h6>
-            )}
+            {error && error.message && <ErrorMessage message={error.message} />}
         </div>
     );
 }

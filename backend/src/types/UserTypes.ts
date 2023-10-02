@@ -12,7 +12,9 @@ export type IUserBody = Omit<IUser, 'token'> & {
     confirmPassword: string;
 };
 
-export type IUserResponse = Omit<IUser, 'password'>;
+export type IUserResponse = {
+    id: number;
+} & Omit<IUser, 'password'>;
 
 export const signUpSchema = z
     .object({

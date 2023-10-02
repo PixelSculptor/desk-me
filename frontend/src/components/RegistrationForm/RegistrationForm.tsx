@@ -1,9 +1,14 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
+import { isUserResponse } from '@/types/guards/isUserResponse';
+import { isClientError } from '@/types/guards/isClientError';
+
 import { InputField } from '@components/InputField/InputField';
 import { Button } from '@components/Button/Button';
+import { ErrorMessage } from '@components/Error/Error';
 
 import { TSignUpSchema, signUpSchema } from './RegisterForm.types';
 
@@ -20,6 +25,7 @@ export const RegistrationForm = function RegistrationForm() {
     });
     /* eslint-disable @typescript-eslint/no-unused-vars */
     const navigate = useNavigate();
+    const [registrationError, setRegistrationError] = useState('');
 
     const onSubmit = async (data: TSignUpSchema) => {
         const response = await fetch(
@@ -38,13 +44,19 @@ export const RegistrationForm = function RegistrationForm() {
                 },
             }
         );
+        const responseData: unknown = await response.json();
 
-        const responseData = await response.json();
-        console.log(responseData);
-        if (!response.ok) {
-            alert('Failed');
+        if (response.ok && isUserResponse(responseData)) {
+            navigate('/');
+        } else if (!response.ok && isClientError(responseData)) {
+            const { code, cause } = responseData;
+
+            setRegistrationError(`
+            ${cause}
+            Kod błędu: ${code}`);
+        } else {
+            setRegistrationError('Coś poszło nie tak');
         }
-        // console.log(responseData);
         reset();
     };
     return (
@@ -104,6 +116,9 @@ export const RegistrationForm = function RegistrationForm() {
                 >
                     Zarejestruj się
                 </Button>
+                {registrationError && (
+                    <ErrorMessage message={registrationError} />
+                )}
             </form>
         </section>
     );
