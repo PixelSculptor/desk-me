@@ -3,48 +3,57 @@ import dotenv from 'dotenv';
 import { Error } from 'mongoose';
 import { CustomRequest } from '../types/CustomRequest';
 import { CustomResponse } from '../types/CustomResponse';
-import { IUser } from '../types/IUser';
+import { IUserResponse, IUserBody, signUpSchema } from '../types/UserTypes';
 import { User } from '../model/user';
 import { hashInputText } from '../utils/encrypt';
 
 dotenv.config();
 
 export const register = async (
-    req: CustomRequest<IUser>,
-    res: CustomResponse<IUser>
+    req: CustomRequest<IUserBody>,
+    res: CustomResponse<IUserResponse>
 ) => {
     try {
         const { email, name, password, surname } = req.body;
+        const result = signUpSchema.safeParse(req.body);
 
-        if (!(email && name && password && surname)) {
-            res.status(400).send({
-                code: 400,
-                message: 'Bad Request',
-                cause: 'All inputs are required',
-            }).json;
+        if (!result.success) {
+            return res
+                .status(400)
+                .send({
+                    code: 400,
+                    message: 'Bad Request',
+                    cause: 'Wszystkie pola są wymagane',
+                })
+                .end();
         }
 
         const isUserCreated = await User.findOne({ email });
 
         if (isUserCreated) {
-            res.status(409).send({
-                code: 409,
-                message: 'Conflict',
-                cause: 'User with this email already exists',
-            }).json;
+            return res
+                .status(409)
+                .send({
+                    code: 409,
+                    message: 'Conflict',
+                    cause: 'Użytkownik o podanym adresie e-mail już istnieje',
+                })
+                .end();
         }
 
         // encrypt password
         const encryptedPassword = hashInputText(password);
-        const user = await User.create({
+        const user = await new User({
             name,
             surname,
-            email: email.toLowerCase,
+            email: email.toLowerCase(),
             password: encryptedPassword,
         });
 
+        await user.save();
+
         if (!user) {
-            throw new Error('Cannot create account');
+            throw new Error('Nie można było utworzyć konta');
         }
 
         // create JWT token
@@ -61,15 +70,22 @@ export const register = async (
 
         user.token = jwtToken;
 
-        res.status(201).send({
-            code: 201,
-            body: user,
-        }).json;
+        const userResponse: IUserResponse = {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            surname: user.surname,
+            token: user.token,
+        };
+
+        res.status(201).send({ ...userResponse });
     } catch (err: unknown) {
-        res.status(403).send({
-            code: 403,
-            message: 'Unauthorized',
-            cause: 'Cannot create account',
-        });
+        res.status(403)
+            .json({
+                code: 403,
+                message: 'Unauthorized',
+                cause: 'Nie można było utworzyć konta',
+            })
+            .end();
     }
 };

@@ -1,0 +1,42 @@
+@use '../../styles/index.scss' as utils;
+
+.button-cmp {
+    display: inline-block;
+    height: auto;
+
+    background-color: utils.$accent-color;
+    color: utils.$neutral-color;
+    border: 2px solid transparent;
+    transition: background-color 0.1s ease-out;
+
+    &:focus-visible {
+        outline: utils.$primary-color solid 0.288rem;
+    }
+
+    &:hover {
+        background-color: utils.$accent-color--darker;
+    }
+
+    &.--rounded {
+        border-radius: 0.5rem;
+    }
+
+    &.small {
+        width: 9.375rem;
+        padding: 0.5rem;
+    }
+
+    &.medium {
+        width: 12.5rem;
+        padding: 0.75rem;
+    }
+
+    &.large {
+        width: 18.75rem;
+        padding: 1rem;
+    }
+
+    &.--fullWidth {
+        width: 100%;
+    }
+}

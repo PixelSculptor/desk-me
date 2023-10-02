@@ -11,6 +11,6 @@
   "ignorePatterns": ["dist", ".eslintrc.cjs"],
   "parser": "@typescript-eslint/parser",
   "rules": {
-    "no-unused-vars": "error"
+    "no-unused-vars": "off"
   }
 }

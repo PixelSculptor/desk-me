@@ -28,7 +28,7 @@ If you are developing a production application, we recommend updating the config
 
 
 ## Color palette - description:
-- #4CAF50 (teal blue) - for buttons, call-to-action elements, and headings,
+- #3D84A8 (teal blue) - for buttons, call-to-action elements, and headings,
 - #F4A261 (light orange) - for secondary buttons, highlights, and important notifications,
 - #F2F2F2 (light gray) - for the background to provide a clean and unobtrusive canvas for content,
 - #333333 (dark gray) - for text, labels, and descriptions, ensuring readability and contrast with the background,
@@ -38,3 +38,6 @@ If you are developing a production application, we recommend updating the config
 - #CCCCCC (light gray) - for borders and dividers to maintain a sense of structure
 - #E63946 (red) - error color,
 - #4CAF50 (green) - success color
+
+# Favicon:
+Favicon was created [here](https://icons8.com)
