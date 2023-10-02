@@ -89,7 +89,11 @@ export const RegistrationForm = function RegistrationForm() {
                     register={register}
                     error={errors.confirmPassword}
                 />
-                <Button disabled={isSubmitting} type="submit">
+                <Button
+                    disabled={isSubmitting}
+                    className="button-cmp"
+                    type="submit"
+                >
                     Zarejestruj się
                 </Button>
             </form>

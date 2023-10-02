@@ -74,6 +74,7 @@ caption {
 
 button {
     font-size: utils.$text-size-button;
-    font-size: clamp(0.625rem, 3vw, utils.$text-size-button);
+    font-size: clamp(0.825rem, 5vw, utils.$text-size-button);
     letter-spacing: 1.25px;
+    font-weight: 600;
 }
