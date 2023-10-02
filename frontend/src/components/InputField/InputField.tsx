@@ -26,7 +26,9 @@ export function InputField<T extends FieldValues>({
                 placeholder={placeholder}
             />
             {error && (
-                <h6 className="inputField__errorMessage">{error.message}</h6>
+                <h6 className={styles['inputField__errorMessage']}>
+                    {error.message}
+                </h6>
             )}
         </div>
     );

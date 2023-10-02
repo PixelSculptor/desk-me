@@ -19,5 +19,13 @@
         padding: 0.5rem;
         border: 0.188rem solid utils.$primary-color;
         border-radius: 0.313rem;
+        &:focus-visible {
+            outline: utils.$secondary-color solid 0.288rem;
+            outline-offset: -0.188rem;
+        }
+    }
+
+    &__errorMessage {
+        color: utils.$error-color;
     }
 }
