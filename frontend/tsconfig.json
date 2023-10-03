@@ -28,7 +28,9 @@
             "@types/*": ["src/types/*"],
             "@styles/*": ["src/styles/*"],
             "@hooks/*": ["src/hooks/*"]
-        }
+        },
+
+        "types": ["vitest/globals", "@types/jest", "@testing-library/jest-dom"]
     },
     "include": ["vite.config.ts", "src", ".eslint.cjs"],
     "exclude": ["node_modules"],
