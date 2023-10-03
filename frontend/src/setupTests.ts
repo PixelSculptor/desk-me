@@ -1,4 +1,4 @@
-// tests/setup.ts
+// tests/setupTests.ts
 import matchers from '@testing-library/jest-dom/matchers';
 import { expect } from 'vitest';
 
