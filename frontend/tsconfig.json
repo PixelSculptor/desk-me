@@ -30,7 +30,7 @@
             "@hooks/*": ["src/hooks/*"]
         }
     },
-    "include": ["src"],
+    "include": ["vite.config.ts", "src", ".eslint.cjs"],
     "exclude": ["node_modules"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }
