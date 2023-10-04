@@ -6,7 +6,7 @@ import { InputField } from './InputField';
 import {
     TSignUpSchema,
     signUpSchema,
-} from '@components/RegistrationForm/RegisterForm.types';
+} from '@/components/RegistrationForm/RegistrationForm.types';
 
 const MockInputComponent = () => {
     const {

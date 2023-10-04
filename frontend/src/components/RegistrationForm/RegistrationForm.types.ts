@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 export const signUpSchema = z
     .object({
-        name: z.string(),
-        surname: z.string(),
+        name: z.string().nonempty({ message: 'Imię jest wymagane' }),
+        surname: z.string().nonempty({ message: 'Nazwisko jest wymagane' }),
         email: z.string().email('Niepoprawny format adresu e-mail'),
         password: z
             .string()

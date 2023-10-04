@@ -10,7 +10,7 @@ import { InputField } from '@components/InputField/InputField';
 import { Button } from '@components/Button/Button';
 import { ErrorMessage } from '@components/Error/Error';
 
-import { TSignUpSchema, signUpSchema } from './RegisterForm.types';
+import { TSignUpSchema, signUpSchema } from './RegistrationForm.types';
 
 import styles from './RegistrationForm.module.scss';
 
@@ -19,7 +19,7 @@ export const RegistrationForm = function RegistrationForm() {
         register,
         handleSubmit,
         reset,
-        formState: { errors, isSubmitting },
+        formState: { errors, isSubmitting, isValidating },
     } = useForm<TSignUpSchema>({
         resolver: zodResolver(signUpSchema),
     });
@@ -109,7 +109,7 @@ export const RegistrationForm = function RegistrationForm() {
                     error={errors.confirmPassword}
                 />
                 <Button
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isValidating}
                     className={styles['button-cmp']}
                     fullWidth
                     type="submit"
