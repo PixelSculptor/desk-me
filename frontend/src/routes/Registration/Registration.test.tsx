@@ -11,7 +11,7 @@ const MockRegistration = () => {
 };
 
 describe('Registration Panel Tests', () => {
-    it('Should render header for inviting user to create acocunt', () => {
+    it('Should render header for inviting user to create acocunt and footer to with redirect link to login page', () => {
         render(<MockRegistration />);
 
         const header = screen.getByText(/Stwórz swoje konto już dzisiaj/i);

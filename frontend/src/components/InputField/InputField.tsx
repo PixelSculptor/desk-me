@@ -23,6 +23,7 @@ export function InputField<T extends FieldValues>({
                 className={styles['inputField__input']}
                 type={type}
                 {...register(id)}
+                id={id}
                 required={required}
                 placeholder={placeholder}
             />
