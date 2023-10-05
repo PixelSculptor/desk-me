@@ -55,27 +55,26 @@ describe('Unit tests for Registration Form Component', () => {
             expect(input).toHaveTextContent('');
         });
     });
+    it('should render communicate when passwords are not same', async () => {
+        const { getByTestId, getByRole, queryByTestId } = render(
+            <MockRegisterForm />
+        );
+        const name = getByTestId('name');
+        const surname = getByTestId('surname');
+        const email = getByTestId('email');
+        const password = getByTestId('password');
+        const confirmPassword = getByTestId('confirmPassword');
 
-    // it("It should be error when passwords are not equals", async () => {
-    //     render(<MockRegisterForm/>);
+        userEvent.type(name, 'Adam');
+        userEvent.type(name, 'Adam');
+        userEvent.type(surname, 'Kowalski');
+        userEvent.type(email, 'adam.kowalski@gmail.com');
+        userEvent.type(password, 'P@ssword1!');
+        userEvent.type(confirmPassword, 'P@ssword11');
 
-    //     const name = screen.getByPlaceholderText("Adam")
-    //     const surname = screen.getByPlaceholderText("Kowalski")
-    //     const email = screen.getByPlaceholderText("adam.kowalski@gmail.com")
-    //     const passwordInputs = screen.getAllByPlaceholderText("********")
-    //     const signUpButton = await screen.findByRole("button");
+        userEvent.click(getByRole('button'));
+        const error = await queryByTestId('errorMessage');
 
-    //     userEvent.type(name, "Adam")
-    //     userEvent.type(surname, "Kowalski")
-    //     userEvent.type(email, "adam.kowalski@gmail.com")
-    //     userEvent.type(passwordInputs[0], "Password1!")
-    //     userEvent.type(passwordInputs[1], "Password11")
-    //     userEvent.click(signUpButton);
-    //     console.log(screen.debug());
-
-    //     const errorMessage = await screen.findAllByTestId("errorMessage");
-
-    //     expect(errorMessage).toBeInTheDocument();
-
-    // })
+        expect(error).toBeInTheDocument();
+    });
 });
