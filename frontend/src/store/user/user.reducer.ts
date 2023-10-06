@@ -1,4 +1,6 @@
-import { TUserAction, TUserState } from './user.action.types';
+import { UserResponse } from '@/types/UserTypes';
+import { TUserState } from './user.action.types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const INITIAL_STATE: TUserState = {
     user: {
@@ -10,14 +12,15 @@ const INITIAL_STATE: TUserState = {
     },
 };
 
-export const userReducer = (
-    state: TUserState = INITIAL_STATE,
-    action: TUserAction
-) => {
-    switch (action.type) {
-        case 'user/SET_CURRENT_USER':
-            return { ...state, user: action.payload };
-        default:
-            return state;
-    }
-};
+const userSlice = createSlice({
+    name: 'user',
+    initialState: INITIAL_STATE,
+    reducers: {
+        setUser: (state: TUserState, action: PayloadAction<UserResponse>) => {
+            state.user = action.payload;
+        },
+    },
+});
+
+export const { setUser } = userSlice.actions;
+export const userReducer = userSlice.reducer;

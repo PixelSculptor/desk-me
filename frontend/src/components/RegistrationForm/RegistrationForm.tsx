@@ -14,7 +14,7 @@ import { ErrorMessage } from '@components/Error/Error';
 import { TSignUpSchema, signUpSchema } from './RegisterForm.types';
 
 import styles from './RegistrationForm.module.scss';
-import { setCurrentUser } from '@/store/user/user.actions';
+import { setUser } from '@/store/user/user.reducer';
 
 export const RegistrationForm = function RegistrationForm() {
     const {
@@ -50,7 +50,7 @@ export const RegistrationForm = function RegistrationForm() {
         const responseData: unknown = await response.json();
 
         if (response.ok && isUserResponse(responseData)) {
-            dispatch(setCurrentUser(responseData));
+            dispatch(setUser(responseData));
             navigate('/');
         } else if (!response.ok && isClientError(responseData)) {
             const { code, cause } = responseData;
