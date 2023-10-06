@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useDispatch } from 'react-redux';
 
 import { isUserResponse } from '@/types/guards/isUserResponse';
 import { isClientError } from '@/types/guards/isClientError';
@@ -13,6 +14,7 @@ import { ErrorMessage } from '@components/Error/Error';
 import { TSignUpSchema, signUpSchema } from './RegisterForm.types';
 
 import styles from './RegistrationForm.module.scss';
+import { setCurrentUser } from '@/store/user/user.actions';
 
 export const RegistrationForm = function RegistrationForm() {
     const {
@@ -23,7 +25,8 @@ export const RegistrationForm = function RegistrationForm() {
     } = useForm<TSignUpSchema>({
         resolver: zodResolver(signUpSchema),
     });
-    /* eslint-disable @typescript-eslint/no-unused-vars */
+    const dispatch = useDispatch();
+
     const navigate = useNavigate();
     const [registrationError, setRegistrationError] = useState('');
 
@@ -47,6 +50,7 @@ export const RegistrationForm = function RegistrationForm() {
         const responseData: unknown = await response.json();
 
         if (response.ok && isUserResponse(responseData)) {
+            dispatch(setCurrentUser(responseData));
             navigate('/');
         } else if (!response.ok && isClientError(responseData)) {
             const { code, cause } = responseData;
