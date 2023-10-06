@@ -1,6 +1,6 @@
-import { TUserAction, TUserInitialState } from './user.action.types';
+import { TUserAction, TUserState } from './user.action.types';
 
-const INITIAL_STATE: TUserInitialState = {
+const INITIAL_STATE: TUserState = {
     user: {
         email: '',
         id: '',
@@ -11,7 +11,7 @@ const INITIAL_STATE: TUserInitialState = {
 };
 
 export const userReducer = (
-    state: TUserInitialState = INITIAL_STATE,
+    state: TUserState = INITIAL_STATE,
     action: TUserAction
 ) => {
     switch (action.type) {
