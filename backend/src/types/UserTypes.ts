@@ -5,16 +5,22 @@ export interface IUser {
     name: string;
     surname: string;
     password: string;
-    token: string;
 }
 
-export type IUserBody = Omit<IUser, 'token'> & {
+export type IUserBody = IUser & {
     confirmPassword: string;
 };
 
 export type IUserResponse = {
     id: number;
+    accessToken: string;
+    refreshToken: string;
 } & Omit<IUser, 'password'>;
+
+export type IUserLoginBody = {
+    email: string;
+    password: string;
+};
 
 export const signUpSchema = z
     .object({

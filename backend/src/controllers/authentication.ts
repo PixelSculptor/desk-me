@@ -3,7 +3,12 @@ import dotenv from 'dotenv';
 import { Error } from 'mongoose';
 import { CustomRequest } from '../types/CustomRequest';
 import { CustomResponse } from '../types/CustomResponse';
-import { IUserResponse, IUserBody, signUpSchema } from '../types/UserTypes';
+import {
+    IUserResponse,
+    IUserBody,
+    signUpSchema,
+    IUserLoginBody,
+} from '../types/UserTypes';
 import { User } from '../model/user';
 import { hashInputText } from '../utils/encrypt';
 
@@ -57,34 +62,119 @@ export const register = async (
         }
 
         // create JWT token
-        const jwtToken = jwt.sign(
+        const accessToken = jwt.sign(
             {
                 user_id: name,
                 surname,
             },
             process.env.SECRET_TOKEN as string,
             {
-                expiresIn: '1h',
+                expiresIn: 600,
             }
         );
 
-        user.token = jwtToken;
+        const refreshToken = jwt.sign(
+            {
+                user_id: name,
+                surname,
+            },
+            process.env.SECRET_TOKEN as string,
+            {
+                expiresIn: 1800,
+            }
+        );
 
         const userResponse: IUserResponse = {
             id: user.id,
             email: user.email,
             name: user.name,
             surname: user.surname,
-            token: user.token,
+            accessToken,
+            refreshToken,
         };
 
         res.status(201).send({ ...userResponse });
     } catch (err: unknown) {
         res.status(403)
-            .json({
+            .send({
                 code: 403,
                 message: 'Unauthorized',
                 cause: 'Nie można było utworzyć konta',
+            })
+            .end();
+    }
+};
+
+export const login = async (
+    req: CustomRequest<IUserLoginBody>,
+    res: CustomResponse<IUserResponse>
+) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res
+                .status(400)
+                .send({
+                    code: 400,
+                    cause: 'Wszystkie pola są wymagane',
+                    message: 'Bad Request',
+                })
+                .end();
+        }
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            throw new Error('Nie można było utworzyć konta');
+        }
+
+        const expectedPassword = hashInputText(password);
+
+        if (user.password !== expectedPassword) {
+            return res
+                .status(403)
+                .send({
+                    code: 403,
+                    cause: 'Wprowadzone hasło jest błędne',
+                    message: 'Unauthorized',
+                })
+                .end();
+        }
+
+        const accessToken = jwt.sign(
+            { email },
+            process.env.SECRET_TOKEN as string,
+            {
+                expiresIn: 600,
+            }
+        );
+        const refreshToken = jwt.sign(
+            { email },
+            process.env.SECRET_TOKEN as string,
+            { expiresIn: 1800 }
+        );
+
+        const userLoggedPayload: IUserResponse = {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            surname: user.surname,
+            accessToken,
+            refreshToken,
+        };
+
+        return res
+            .status(200)
+            .send({ ...userLoggedPayload })
+            .end();
+    } catch (err: unknown) {
+        return res
+            .status(404)
+            .send({
+                code: 404,
+                message: 'Not Found',
+                cause: 'Użytkownik nie istnieje',
             })
             .end();
     }
