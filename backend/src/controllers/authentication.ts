@@ -64,8 +64,8 @@ export const register = async (
         // create JWT token
         const accessToken = jwt.sign(
             {
-                user_id: name,
-                surname,
+                user_id: user.id,
+                email,
             },
             process.env.SECRET_TOKEN as string,
             {
@@ -75,8 +75,8 @@ export const register = async (
 
         const refreshToken = jwt.sign(
             {
-                user_id: name,
-                surname,
+                user_id: user.id,
+                email,
             },
             process.env.SECRET_TOKEN as string,
             {
@@ -124,9 +124,10 @@ export const login = async (
         }
 
         const user = await User.findOne({ email });
-
+        console.log(user);
         if (!user) {
-            throw new Error('Nie można było utworzyć konta');
+            console.log('error');
+            throw new Error('Użytkownik nie istnieje');
         }
 
         const expectedPassword = hashInputText(password);
@@ -143,14 +144,20 @@ export const login = async (
         }
 
         const accessToken = jwt.sign(
-            { email },
+            {
+                user_id: user.id,
+                email,
+            },
             process.env.SECRET_TOKEN as string,
             {
                 expiresIn: 600,
             }
         );
         const refreshToken = jwt.sign(
-            { email },
+            {
+                user_id: user.id,
+                email,
+            },
             process.env.SECRET_TOKEN as string,
             { expiresIn: 1800 }
         );
@@ -177,5 +184,50 @@ export const login = async (
                 cause: 'Użytkownik nie istnieje',
             })
             .end();
+    }
+};
+
+export const rereshToken = (
+    req: CustomRequest<Pick<IUserResponse, 'refreshToken' | 'id' | 'email'>>,
+    res: CustomResponse<Pick<IUserResponse, 'accessToken'>>
+) => {
+    try {
+        const { refreshToken, id, email } = req.body;
+        if (!refreshToken) {
+            return res
+                .status(401)
+                .send({
+                    code: 401,
+                    cause: 'Missing token',
+                    message: 'Unauthorized',
+                })
+                .end();
+        }
+
+        const verify = jwt.verify(
+            refreshToken,
+            process.env.SECRET_TOKEN as string
+        );
+        if (!verify) throw new Error('Invalid refresh token');
+        const refreshedToken = jwt.sign(
+            {
+                user_id: id,
+                email,
+            },
+            process.env.SECRET_TOKEN as string,
+            { expiresIn: 600 }
+        );
+        return res
+            .status(200)
+            .send({
+                accessToken: refreshedToken,
+            })
+            .end();
+    } catch (err: unknown) {
+        res.status(403).send({
+            code: 403,
+            message: 'Forbidden',
+            cause: (err as Error).message,
+        });
     }
 };
