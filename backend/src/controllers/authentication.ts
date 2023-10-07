@@ -198,7 +198,7 @@ export const rereshToken = (
                 .status(401)
                 .send({
                     code: 401,
-                    cause: 'Missing token',
+                    cause: 'Brakujący żeton',
                     message: 'Unauthorized',
                 })
                 .end();
