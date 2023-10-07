@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDispatch } from 'react-redux';
 
+import { setUser } from '@/store/user/user.reducer';
 import { isUserResponse } from '@/types/guards/isUserResponse';
 import { isClientError } from '@/types/guards/isClientError';
 
@@ -14,7 +15,6 @@ import { ErrorMessage } from '@components/Error/Error';
 import { TSignUpSchema, signUpSchema } from './RegistrationForm.types';
 
 import styles from './RegistrationForm.module.scss';
-import { setUser } from '@/store/user/user.reducer';
 
 export const RegistrationForm = function RegistrationForm() {
     const {

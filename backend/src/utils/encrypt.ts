@@ -1,6 +1,11 @@
 import crypto from 'crypto';
+import dotenv from 'dotenv';
 
-export function hashInputText(text: string) {
-    const random = crypto.randomBytes(128).toString('base64');
-    return crypto.createHmac('sha256', text).update(random).digest('hex');
-}
+dotenv.config();
+
+export const hashInputText = (text: string) => {
+    return crypto
+        .createHmac('sha256', text)
+        .update(process.env.SECRET_TOKEN as string)
+        .digest('hex');
+};
