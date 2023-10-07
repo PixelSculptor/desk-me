@@ -10,6 +10,7 @@ export type UserModelTypes = {
 } & UserCredentialTypes;
 
 export type UserResponse = {
-    token: string;
+    accessToken: string;
+    refreshToken: string;
     id: string;
 } & Omit<UserCredentialTypes, 'password'>;

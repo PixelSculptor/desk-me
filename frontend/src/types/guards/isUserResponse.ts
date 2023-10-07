@@ -6,7 +6,8 @@ export function isUserResponse(payload: unknown): payload is UserResponse {
         (payload as UserResponse).name !== undefined &&
         (payload as UserResponse).surname !== undefined &&
         (payload as UserResponse).email !== undefined &&
-        (payload as UserResponse).token !== undefined
+        (payload as UserResponse).accessToken !== undefined &&
+        (payload as UserResponse).refreshToken !== undefined
     )
         return true;
     return false;

@@ -8,7 +8,8 @@ const INITIAL_STATE: TUserState = {
         id: '',
         name: '',
         surname: '',
-        token: '',
+        accessToken: '',
+        refreshToken: '',
     },
 };
 
