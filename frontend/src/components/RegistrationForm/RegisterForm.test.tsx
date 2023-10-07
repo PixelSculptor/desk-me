@@ -1,14 +1,22 @@
 import { screen, render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+
+import { store, persistor } from '@/store/store';
 
 import { RegistrationForm } from './RegistrationForm';
 
 const MockRegisterForm = () => {
     return (
-        <BrowserRouter>
-            <RegistrationForm />
-        </BrowserRouter>
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <BrowserRouter>
+                    <RegistrationForm />
+                </BrowserRouter>
+            </PersistGate>
+        </Provider>
     );
 };
 
@@ -56,25 +64,69 @@ describe('Unit tests for Registration Form Component', () => {
         });
     });
     it('should render communicate when passwords are not same', async () => {
-        const { getByTestId, getByRole, queryByTestId } = render(
-            <MockRegisterForm />
+        render(<MockRegisterForm />);
+        const name = screen.getByLabelText('Imię');
+        const surname = screen.getByLabelText('Nazwisko');
+        const email = screen.getByLabelText('Adres E-Mail');
+        const password = screen.getByLabelText('Hasło');
+        const confirmPassword = screen.getByLabelText('Powtórz hasło');
+
+        await userEvent.type(name, 'John');
+        await userEvent.type(surname, 'Doe');
+        await userEvent.type(email, 'john.doe@gmail.com');
+        await userEvent.type(password, 'P@ssword1!');
+        await userEvent.type(confirmPassword, 'P@ssword11');
+
+        await userEvent.click(screen.getByRole('button'));
+        const error = await screen.findByText('Hasła muszą się zgadzać');
+        expect(error).toHaveTextContent('Hasła muszą się zgadzać');
+    });
+
+    it('should render error message when password is too short', async () => {
+        render(<MockRegisterForm />);
+        const name = screen.getByLabelText('Imię');
+        const surname = screen.getByLabelText('Nazwisko');
+        const email = screen.getByLabelText('Adres E-Mail');
+        const password = screen.getByLabelText('Hasło');
+        const confirmPassword = screen.getByLabelText('Powtórz hasło');
+
+        await userEvent.type(name, 'John');
+        await userEvent.type(surname, 'Doe');
+        await userEvent.type(email, 'john.doe@gmail.com');
+        await userEvent.type(password, 'Short!');
+        await userEvent.type(confirmPassword, 'Short!');
+
+        await userEvent.click(screen.getByRole('button'));
+        const error = await screen.findByText(
+            'Hasło powinno mieć co najmniej 10 znaków'
         );
-        const name = getByTestId('name');
-        const surname = getByTestId('surname');
-        const email = getByTestId('email');
-        const password = getByTestId('password');
-        const confirmPassword = getByTestId('confirmPassword');
+        expect(error).toHaveTextContent(
+            'Hasło powinno mieć co najmniej 10 znaków'
+        );
+    });
 
-        userEvent.type(name, 'Adam');
-        userEvent.type(name, 'Adam');
-        userEvent.type(surname, 'Kowalski');
-        userEvent.type(email, 'adam.kowalski@gmail.com');
-        userEvent.type(password, 'P@ssword1!');
-        userEvent.type(confirmPassword, 'P@ssword11');
+    it('should render error message when password is too short and confirm password does not match', async () => {
+        render(<MockRegisterForm />);
+        const name = screen.getByLabelText('Imię');
+        const surname = screen.getByLabelText('Nazwisko');
+        const email = screen.getByLabelText('Adres E-Mail');
+        const password = screen.getByLabelText('Hasło');
+        const confirmPassword = screen.getByLabelText('Powtórz hasło');
 
-        userEvent.click(getByRole('button'));
-        const error = await queryByTestId('errorMessage');
+        await userEvent.type(name, 'John');
+        await userEvent.type(surname, 'Doe');
+        await userEvent.type(email, 'john.doe@gmail.com');
+        await userEvent.type(password, 'Short!');
+        await userEvent.type(confirmPassword, 'P@ssword1!');
 
-        expect(error).toBeInTheDocument();
+        await userEvent.click(screen.getByRole('button'));
+        const errorShort = await screen.findByText(
+            'Hasło powinno mieć co najmniej 10 znaków'
+        );
+        const errorMatch = await screen.findByText('Hasła muszą się zgadzać');
+        expect(errorShort).toHaveTextContent(
+            'Hasło powinno mieć co najmniej 10 znaków'
+        );
+        expect(errorMatch).toHaveTextContent('Hasła muszą się zgadzać');
     });
 });
