@@ -9,12 +9,6 @@ import { store, persistor } from './store/store';
 import App from './App';
 import './styles/index.scss';
 
-export enum ROUTES {
-    Home = '/',
-    Register = '/register',
-    Login = '/login',
-}
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
         <Provider store={store}>
