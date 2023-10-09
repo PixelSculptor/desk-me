@@ -34,6 +34,6 @@ describe('Test for Login panel', () => {
         expect(linkElement).toBeInTheDocument();
 
         await fireEvent.click(linkElement);
-        expect(history.location.pathname).toBe('/register');
+        expect(history.location.pathname).toHaveBeenCalledWith('/register');
     });
 });
