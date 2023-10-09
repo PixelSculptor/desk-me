@@ -1,0 +1,22 @@
+@use '../../styles/index.scss' as utils;
+
+.loginPanel {
+    &__heading {
+        text-align: center;
+    }
+    border: 2px solid green;
+
+    &__redirectionLogin {
+        a {
+            color: utils.$accent-color;
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+            &:focus-visible {
+                outline: utils.$secondary-color solid 0.288rem;
+                border-radius: 0.188rem;
+            }
+        }
+    }
+}
