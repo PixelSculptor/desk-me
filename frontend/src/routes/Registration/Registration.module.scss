@@ -15,6 +15,7 @@
         text-align: center;
         a {
             color: utils.$accent-color;
+            font-weight: 600;
             &:hover {
                 cursor: pointer;
                 text-decoration: underline;
