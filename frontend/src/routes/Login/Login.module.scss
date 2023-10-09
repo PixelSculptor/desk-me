@@ -1,14 +1,20 @@
 @use '../../styles/index.scss' as utils;
 
 .loginPanel {
+    @include utils.display_flex(column, center, space-between);
+    gap: 2rem;
+    height: 80vh;
+    // height: 80dvh;
+    padding: 0 2rem;
     &__heading {
         text-align: center;
     }
-    border: 2px solid green;
 
     &__redirectionLogin {
+        text-align: center;
         a {
             color: utils.$accent-color;
+            font-weight: 600;
             &:hover {
                 cursor: pointer;
                 text-decoration: underline;

@@ -11,8 +11,8 @@ export function Login() {
             </h2>
             <LoginForm />
             <h6 className={styles['loginPanel__redirectionLogin']}>
-                Nie masz jeszcze konta?{' '}
-                <Link to={'/register'}>Zarejestruj się</Link>
+                Nie masz jeszcze konta?
+                <Link to={'/register'}> Zarejestruj&nbsp;się</Link>
             </h6>
         </section>
     );
