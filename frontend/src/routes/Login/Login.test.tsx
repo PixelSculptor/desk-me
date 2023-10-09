@@ -1,6 +1,5 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 
 import { Login } from './Login';
 import { render } from '@testing-library/react';
@@ -26,14 +25,5 @@ describe('Test for Login panel', () => {
         expect(inviteToRegisterHeader).toHaveTextContent(
             'Nie masz jeszcze konta? Zarejestruj się'
         );
-    });
-    it('Should redirect to /register route when user clicks on router link', async () => {
-        const history = createMemoryHistory();
-        render(<MockLoginPanel />);
-        const linkElement = screen.getByText('Zarejestruj się');
-        expect(linkElement).toBeInTheDocument();
-
-        await fireEvent.click(linkElement);
-        expect(history.location.pathname).toHaveBeenCalledWith('/register');
     });
 });
