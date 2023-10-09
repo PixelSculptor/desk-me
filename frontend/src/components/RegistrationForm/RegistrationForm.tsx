@@ -16,7 +16,7 @@ import { TSignUpSchema, signUpSchema } from './RegistrationForm.types';
 
 import styles from './RegistrationForm.module.scss';
 
-export const RegistrationForm = function RegistrationForm() {
+export function RegistrationForm() {
     const {
         register,
         handleSubmit,
@@ -114,7 +114,6 @@ export const RegistrationForm = function RegistrationForm() {
                 />
                 <Button
                     disabled={isSubmitting || isValidating}
-                    className={styles['button-cmp']}
                     fullWidth
                     type="submit"
                 >
@@ -126,4 +125,4 @@ export const RegistrationForm = function RegistrationForm() {
             </form>
         </section>
     );
-};
+}
