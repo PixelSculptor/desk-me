@@ -25,22 +25,28 @@ export function RegistrationForm() {
     } = useForm<TSignUpSchema>({
         resolver: zodResolver(signUpSchema),
     });
-    const dispatch = useDispatch();
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [registrationError, setRegistrationError] = useState('');
 
-    const onSubmit = async (data: TSignUpSchema) => {
+    const onSubmit = async ({
+        name,
+        surname,
+        email,
+        password,
+        confirmPassword,
+    }: TSignUpSchema) => {
         const response = await fetch(
             `${import.meta.env.VITE_API_URL}/auth/register`,
             {
                 method: 'POST',
                 body: JSON.stringify({
-                    name: data.name,
-                    surname: data.surname,
-                    email: data.email,
-                    password: data.password,
-                    confirmPassword: data.confirmPassword,
+                    name,
+                    surname,
+                    email,
+                    password,
+                    confirmPassword,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
