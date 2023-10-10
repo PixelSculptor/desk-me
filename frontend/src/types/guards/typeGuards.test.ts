@@ -17,7 +17,8 @@ const userResponsePayloadCorrect: unknown = {
     name: 'John',
     surname: 'Doe',
     email: 'john.doe@op.pl',
-    token: 'secret JWT Token',
+    accessToken: 'secret JWT Token',
+    refreshToken: 'secret JWT Token',
 };
 
 const userResponsePayloadWrong: unknown = {

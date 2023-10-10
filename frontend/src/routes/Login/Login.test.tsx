@@ -1,14 +1,19 @@
-import { screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-
-import { Login } from './Login';
+import { screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import { render } from '@testing-library/react';
+import { Provider } from 'react-redux';
+
+import App from '@/App';
+
+import { store } from '../../store/store';
 
 const MockLoginPanel = () => {
     return (
-        <BrowserRouter>
-            <Login />
-        </BrowserRouter>
+        <Provider store={store}>
+            <MemoryRouter initialEntries={['/login']}>
+                <App />
+            </MemoryRouter>
+        </Provider>
     );
 };
 
@@ -25,5 +30,15 @@ describe('Test for Login panel', () => {
         expect(inviteToRegisterHeader).toHaveTextContent(
             'Nie masz jeszcze konta? Zarejestruj się'
         );
+    });
+    it("navigates register panel when user clicks to router link with phrase 'Nie masz jeszcze konta? Zarejestruj się'", async () => {
+        render(<MockLoginPanel />);
+        const redirectLink = screen.getByRole('link');
+
+        fireEvent.click(redirectLink);
+        expect(redirectLink).toHaveTextContent('Zarejestruj się');
+        expect(
+            await screen.findByRole('heading', { level: 2 })
+        ).toHaveTextContent('Stwórz swoje konto już dzisiaj');
     });
 });
