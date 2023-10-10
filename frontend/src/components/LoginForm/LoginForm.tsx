@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
@@ -8,15 +9,14 @@ import {
     signInSchema,
 } from '../RegistrationForm/RegistrationForm.types';
 import { isUserResponse } from '@/types/guards/isUserResponse';
+import { isClientError } from '@/types/guards/isClientError';
 import { setUser } from '@/store/user/user.reducer';
 
 import { InputField } from '../InputField/InputField';
 import { Button } from '../Button/Button';
+import { ErrorMessage } from '../Error/Error';
 
 import styles from './LoginForm.module.scss';
-import { useNavigate } from 'react-router-dom';
-import { isClientError } from '@/types/guards/isClientError';
-import { ErrorMessage } from '../Error/Error';
 
 export function LoginForm() {
     const {
