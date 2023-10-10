@@ -61,6 +61,12 @@ export default defineConfig({
                     new URL('./src/hooks', import.meta.url)
                 ),
             },
+            {
+                find: '@store',
+                replacement: fileURLToPath(
+                    new URL('./src/store', import.meta.url)
+                ),
+            },
         ],
     },
 });
