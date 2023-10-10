@@ -8,6 +8,7 @@ import {
     IUserBody,
     signUpSchema,
     IUserLoginBody,
+    signInSchema,
 } from '../types/UserTypes';
 import { User } from '../model/user';
 import { hashInputText } from '../utils/encrypt';
@@ -111,8 +112,9 @@ export const login = async (
 ) => {
     try {
         const { email, password } = req.body;
+        const result = signInSchema.safeParse(req.body);
 
-        if (!email || !password) {
+        if (!result.success) {
             return res
                 .status(400)
                 .send({
@@ -124,7 +126,7 @@ export const login = async (
         }
 
         const user = await User.findOne({ email });
-        console.log(user);
+
         if (!user) {
             console.log('error');
             throw new Error('Użytkownik nie istnieje');

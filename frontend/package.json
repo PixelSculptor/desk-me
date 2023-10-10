@@ -21,6 +21,7 @@
         "classnames": "^2.3.2",
         "dotenv": "^16.3.1",
         "fetch": "^1.1.0",
+        "framer-motion": "^10.16.4",
         "husky": "^8.0.3",
         "jest-dom": "^4.0.0",
         "jsdom": "^22.1.0",

@@ -1,17 +1,16 @@
 @use '../../styles/index.scss' as utils;
 
-.registrationPanel {
+.loginPanel {
     @include utils.display_flex(column, center, space-between);
     gap: 2rem;
     height: 80vh;
     height: 80dvh;
     padding: 0 2rem;
-
     &__heading {
         text-align: center;
     }
 
-    &__redirectLogin {
+    &__redirectionLogin {
         text-align: center;
         a {
             color: utils.$accent-color;

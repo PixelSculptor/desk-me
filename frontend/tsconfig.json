@@ -27,7 +27,8 @@
             "@components/*": ["src/components/*"],
             "@types/*": ["src/types/*"],
             "@styles/*": ["src/styles/*"],
-            "@hooks/*": ["src/hooks/*"]
+            "@hooks/*": ["src/hooks/*"],
+            "@store/*": ["src/store/*"]
         },
 
         "types": ["vitest/globals", "@types/jest", "@testing-library/jest-dom"]

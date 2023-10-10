@@ -16,7 +16,7 @@ import { TSignUpSchema, signUpSchema } from './RegistrationForm.types';
 
 import styles from './RegistrationForm.module.scss';
 
-export const RegistrationForm = function RegistrationForm() {
+export function RegistrationForm() {
     const {
         register,
         handleSubmit,
@@ -25,22 +25,28 @@ export const RegistrationForm = function RegistrationForm() {
     } = useForm<TSignUpSchema>({
         resolver: zodResolver(signUpSchema),
     });
-    const dispatch = useDispatch();
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [registrationError, setRegistrationError] = useState('');
 
-    const onSubmit = async (data: TSignUpSchema) => {
+    const onSubmit = async ({
+        name,
+        surname,
+        email,
+        password,
+        confirmPassword,
+    }: TSignUpSchema) => {
         const response = await fetch(
             `${import.meta.env.VITE_API_URL}/auth/register`,
             {
                 method: 'POST',
                 body: JSON.stringify({
-                    name: data.name,
-                    surname: data.surname,
-                    email: data.email,
-                    password: data.password,
-                    confirmPassword: data.confirmPassword,
+                    name,
+                    surname,
+                    email,
+                    password,
+                    confirmPassword,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -114,7 +120,6 @@ export const RegistrationForm = function RegistrationForm() {
                 />
                 <Button
                     disabled={isSubmitting || isValidating}
-                    className={styles['button-cmp']}
                     fullWidth
                     type="submit"
                 >
@@ -126,4 +131,4 @@ export const RegistrationForm = function RegistrationForm() {
             </form>
         </section>
     );
-};
+}
