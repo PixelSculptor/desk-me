@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
     TSignInSchema,
     signInSchema,
-} from '../RegistrationForm/RegistrationForm.types';
+} from '@components/LoginForm/LoginForm.types';
 import { isUserResponse } from '@/types/guards/isUserResponse';
 import { isClientError } from '@/types/guards/isClientError';
 import { setUser } from '@/store/user/user.reducer';
