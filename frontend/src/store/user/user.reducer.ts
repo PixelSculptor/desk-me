@@ -1,5 +1,5 @@
 import { UserResponse } from '@/types/UserTypes';
-import { TUserState } from './user.action.types';
+import { TUserState, USER } from './user.action.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const INITIAL_STATE: TUserState = {
@@ -11,17 +11,45 @@ const INITIAL_STATE: TUserState = {
         accessToken: '',
         refreshToken: '',
     },
+    isLoading: false,
+    error: '',
 };
 
 const userSlice = createSlice({
-    name: 'user',
+    name: USER,
     initialState: INITIAL_STATE,
     reducers: {
-        setUser: (state: TUserState, action: PayloadAction<UserResponse>) => {
-            state.user = action.payload;
+        getUserStart: (state: TUserState) => {
+            return {
+                ...state,
+                isLoading: true,
+                error: '',
+            };
+        },
+        getUserSuccess: (
+            state: TUserState,
+            { payload }: PayloadAction<UserResponse>
+        ) => {
+            return {
+                ...state,
+                user: payload,
+                isLoading: false,
+                error: '',
+            };
+        },
+        getUserFailure: (
+            state: TUserState,
+            { payload }: PayloadAction<string>
+        ) => {
+            return {
+                ...state,
+                isLoading: false,
+                error: payload,
+            };
         },
     },
 });
 
-export const { setUser } = userSlice.actions;
+export const { getUserStart, getUserSuccess, getUserFailure } =
+    userSlice.actions;
 export const userReducer = userSlice.reducer;

@@ -10,7 +10,7 @@ import {
 } from '@components/LoginForm/LoginForm.types';
 import { isUserResponse } from '@/types/guards/isUserResponse';
 import { isClientError } from '@/types/guards/isClientError';
-import { setUser } from '@/store/user/user.reducer';
+import { getUserSuccess } from '@/store/user/user.reducer';
 
 import { InputField } from '../InputField/InputField';
 import { Button } from '../Button/Button';
@@ -49,7 +49,7 @@ export function LoginForm() {
         const responseData: unknown = await response.json();
 
         if (response.ok && isUserResponse(responseData)) {
-            dispatch(setUser(responseData));
+            dispatch(getUserSuccess(responseData));
             navigate('/');
         } else if (!response.ok && isClientError(responseData)) {
             const { cause, code } = responseData;
