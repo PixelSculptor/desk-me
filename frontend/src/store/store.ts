@@ -5,9 +5,10 @@ import sessionStorage from 'redux-persist/lib/storage/session';
 import createSagaMiddleware from '@redux-saga/core';
 
 import { rootReducer } from './rootReducer';
+import rootSaga from './rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
-const middlewares = [logger, sagaMiddleware];
+const middlewares = [sagaMiddleware, logger];
 
 const persistConfig = {
     key: 'root',
@@ -22,5 +23,7 @@ export const store = configureStore({
     devTools: process.env.NODE_ENV !== 'production',
     middleware: middlewares,
 });
+
+sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);

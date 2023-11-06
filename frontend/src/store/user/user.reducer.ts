@@ -1,4 +1,4 @@
-import { UserResponse } from '@/types/UserTypes';
+import { UserCredentialTypes, UserResponse } from '@/types/UserTypes';
 import { TUserState, USER } from './user.action.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -19,7 +19,13 @@ const userSlice = createSlice({
     name: USER,
     initialState: INITIAL_STATE,
     reducers: {
-        getUserStart: (state: TUserState) => {
+        getUserStart: (
+            state: TUserState,
+            {
+                payload: { email, password },
+            }: PayloadAction<Pick<UserCredentialTypes, 'email' | 'password'>>
+        ) => {
+            console.log(email, password);
             return {
                 ...state,
                 isLoading: true,

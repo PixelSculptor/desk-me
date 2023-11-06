@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useDispatch } from 'react-redux';
 
-import { setUser } from '@/store/user/user.reducer';
+import { getUserSuccess } from '@/store/user/user.reducer';
 import { isUserResponse } from '@/types/guards/isUserResponse';
 import { isClientError } from '@/types/guards/isClientError';
 
@@ -56,7 +56,7 @@ export function RegistrationForm() {
         const responseData: unknown = await response.json();
 
         if (response.ok && isUserResponse(responseData)) {
-            dispatch(setUser(responseData));
+            dispatch(getUserSuccess(responseData));
             navigate('/');
         } else if (!response.ok && isClientError(responseData)) {
             const { code, cause } = responseData;
