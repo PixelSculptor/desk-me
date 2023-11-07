@@ -1,8 +1,9 @@
 @use '../../styles/index.scss' as utils;
 
 .button-cmp {
-    display: inline-block;
+    display: flex;
     height: auto;
+    justify-content: center;
 
     background-color: utils.$accent-color;
     color: utils.$neutral-color;

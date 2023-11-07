@@ -14,7 +14,8 @@ import { Button } from '../Button/Button';
 import { ErrorMessage } from '../Error/Error';
 
 import styles from './LoginForm.module.scss';
-import { selectErrorMessage } from '@/store/user/user.selector';
+import { selectErrorMessage, selectStatus } from '@/store/user/user.selector';
+import { Loader } from '../Loader/Loader';
 
 export function LoginForm() {
     const {
@@ -27,6 +28,7 @@ export function LoginForm() {
     });
 
     const loginError = useSelector(selectErrorMessage);
+    const loading = useSelector(selectStatus);
 
     // const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -92,7 +94,7 @@ export function LoginForm() {
                     fullWidth
                     type="submit"
                 >
-                    Zaloguj się
+                    {!loading ? <Loader /> : 'Zaloguj się'}
                 </Button>
                 {loginError && <ErrorMessage message={loginError} />}
             </form>
