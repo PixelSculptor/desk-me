@@ -15,6 +15,7 @@ import { ErrorMessage } from '@components/Error/Error';
 import { TSignUpSchema, signUpSchema } from './RegistrationForm.types';
 
 import styles from './RegistrationForm.module.scss';
+import { Loader } from '../Loader/Loader';
 
 export function RegistrationForm() {
     const {
@@ -123,7 +124,8 @@ export function RegistrationForm() {
                     fullWidth
                     type="submit"
                 >
-                    Zarejestruj się
+                    {/* TODO: replace with proper loading value from redux */}
+                    {isSubmitting ? <Loader /> : 'Zarejestruj się'}
                 </Button>
                 {registrationError && (
                     <ErrorMessage message={registrationError} />

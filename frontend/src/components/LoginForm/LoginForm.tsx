@@ -22,20 +22,21 @@ export function LoginForm() {
         register,
         handleSubmit,
         reset,
-        formState: { errors, isSubmitting, isValidating },
+        formState: { errors },
     } = useForm<TSignInSchema>({
         resolver: zodResolver(signInSchema),
     });
 
     const loginError = useSelector(selectErrorMessage);
-    const loading = useSelector(selectStatus);
+    const isLoading = useSelector(selectStatus);
 
     // const navigate = useNavigate();
     const dispatch = useDispatch();
     // const [loginError, setLoginError] = useState('');
 
-    const onSubmit = async ({ email, password }: TSignInSchema) => {
+    const onSubmit = ({ email, password }: TSignInSchema) => {
         dispatch(getUserStart({ email, password }));
+        console.log(isLoading);
         // const response = await fetch(
         //     `${import.meta.env.VITE_API_URL}/auth/login`,
         //     {
@@ -89,12 +90,8 @@ export function LoginForm() {
                     error={errors.password}
                 />
 
-                <Button
-                    disabled={isSubmitting || isValidating}
-                    fullWidth
-                    type="submit"
-                >
-                    {!loading ? <Loader /> : 'Zaloguj się'}
+                <Button disabled={isLoading} fullWidth type="submit">
+                    {isLoading ? <Loader /> : 'Zaloguj się'}
                 </Button>
                 {loginError && <ErrorMessage message={loginError} />}
             </form>

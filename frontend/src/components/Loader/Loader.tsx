@@ -1,5 +1,11 @@
 import styles from './Loader.module.scss';
 
 export function Loader() {
-    return <div className={styles['loader']}></div>;
+    return (
+        <div className={styles['loader']}>
+            <div className={styles['circle']}></div>
+            <div className={styles['circle']}></div>
+            <div className={styles['circle']}></div>
+        </div>
+    );
 }

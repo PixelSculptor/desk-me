@@ -2,7 +2,7 @@
 
 .button-cmp {
     display: flex;
-    height: auto;
+    height: 3rem;
     justify-content: center;
 
     background-color: utils.$accent-color;
@@ -12,7 +12,7 @@
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
     &:disabled {
-        opacity: 0.2;
+        opacity: 0.5;
     }
 
     &:focus-visible {
