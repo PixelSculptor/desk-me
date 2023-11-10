@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import {
@@ -12,10 +12,10 @@ import { getUserStart } from '@/store/user/user.reducer';
 import { InputField } from '../InputField/InputField';
 import { Button } from '../Button/Button';
 import { ErrorMessage } from '../Error/Error';
+import { Loader } from '../Loader/Loader';
 
 import styles from './LoginForm.module.scss';
 import { selectErrorMessage, selectStatus } from '@/store/user/user.selector';
-import { Loader } from '../Loader/Loader';
 
 export function LoginForm() {
     const {
@@ -30,13 +30,14 @@ export function LoginForm() {
     const loginError = useSelector(selectErrorMessage);
     const isLoading = useSelector(selectStatus);
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    // const [loginError, setLoginError] = useState('');
 
     const onSubmit = ({ email, password }: TSignInSchema) => {
         dispatch(getUserStart({ email, password }));
-        console.log(isLoading);
+        if (!loginError) {
+            navigate('/');
+        }
         // const response = await fetch(
         //     `${import.meta.env.VITE_API_URL}/auth/login`,
         //     {
@@ -63,6 +64,7 @@ export function LoginForm() {
         // } else {
         //     setLoginError('Coś poszło nie tak');
         // }
+
         reset();
     };
 
