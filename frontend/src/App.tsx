@@ -11,7 +11,6 @@ function App() {
     return (
         <AnimatePresence>
             <Routes location={location} key={location.pathname}>
-                {/* <Route path={ROUTES.Home} element={<Home />} /> */}
                 <Route path={ROUTES.Home} element={<AuthHome />} />
                 <Route path={ROUTES.Register} element={<Registration />} />
                 <Route path={ROUTES.Login} element={<Login />} />
