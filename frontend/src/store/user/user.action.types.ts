@@ -1,7 +1,7 @@
 import { UserResponse } from '@/types/UserTypes';
 
 export type TUserState = {
-    user: UserResponse | null;
+    user: UserResponse;
     isLoading: boolean;
     error: string;
 };

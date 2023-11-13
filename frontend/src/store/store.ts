@@ -13,7 +13,7 @@ const middlewares = [sagaMiddleware, logger];
 const persistConfig = {
     key: 'root',
     storage: sessionStorage,
-    blacklist: ['user'],
+    whitelist: ['user'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -3,20 +3,13 @@ import { put, takeLatest, call, all } from 'redux-saga/effects';
 
 import { UserCredentialTypes } from '@/types/UserTypes';
 import { USER_ACTION_TYPES } from './user.action.types';
-import {
-    getUserFailure,
-    getUserSuccess,
-    registerUserFailure,
-    registerUserSuccess,
-} from './user.reducer';
+import { getUserFailure, getUserSuccess, registerUserFailure, registerUserSuccess } from './user.reducer';
 import { isUserResponse } from '@/types/guards/isUserResponse';
 import { isClientError } from '@/types/guards/isClientError';
 import { TSignUpSchema } from '@/components/RegistrationForm/RegistrationForm.types';
 
 // login API request
-function* loginUser({
-    payload: { email, password },
-}: PayloadAction<Pick<UserCredentialTypes, 'email' | 'password'>>) {
+function* loginUser({ payload: { email, password } }: PayloadAction<Pick<UserCredentialTypes, 'email' | 'password'>>) {
     try {
         const response: Response = yield call(() =>
             fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
@@ -47,11 +40,9 @@ function* loginUser({
 }
 
 // register API request
-function* registerUser({
-    payload: { email, name, surname, password, confirmPassword },
-}: PayloadAction<TSignUpSchema>) {
+function* registerUser({ payload: { email, name, surname, password, confirmPassword } }: PayloadAction<TSignUpSchema>) {
     try {
-        const response: Response = yield call(() => {
+        const response: Response = yield call(() =>
             fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -64,12 +55,10 @@ function* registerUser({
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            });
-        });
+            })
+        );
         const responseData: unknown = yield response.json();
-
         if (response.ok && isUserResponse(responseData)) {
-            // dispatch(getUserSuccess(responseData));
             yield put(registerUserSuccess(responseData));
         } else if (!response.ok && isClientError(responseData)) {
             const { cause, code } = responseData;

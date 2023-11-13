@@ -3,10 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import {
-    TSignInSchema,
-    signInSchema,
-} from '@components/LoginForm/LoginForm.types';
+import { TSignInSchema, signInSchema } from '@components/LoginForm/LoginForm.types';
 import { getUserStart } from '@/store/user/user.reducer';
 
 import { InputField } from '../InputField/InputField';
@@ -38,42 +35,12 @@ export function LoginForm() {
         if (!loginError) {
             navigate('/');
         }
-        // const response = await fetch(
-        //     `${import.meta.env.VITE_API_URL}/auth/login`,
-        //     {
-        //         method: 'POST',
-        //         body: JSON.stringify({
-        //             email,
-        //             password,
-        //         }),
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //     }
-        // );
-        // const responseData: unknown = await response.json();
-
-        // if (response.ok && isUserResponse(responseData)) {
-        //     dispatch(getUserSuccess(responseData));
-        //     navigate('/');
-        // } else if (!response.ok && isClientError(responseData)) {
-        //     const { cause, code } = responseData;
-
-        //     setLoginError(`${cause}\n
-        //     Kod błędu: ${code}`);
-        // } else {
-        //     setLoginError('Coś poszło nie tak');
-        // }
-
         reset();
     };
 
     return (
         <section className={styles['login']}>
-            <form
-                className={styles['login__form']}
-                onSubmit={handleSubmit(onSubmit)}
-            >
+            <form className={styles['login__form']} onSubmit={handleSubmit(onSubmit)}>
                 <InputField
                     id="email"
                     label="Adres E-mail"
