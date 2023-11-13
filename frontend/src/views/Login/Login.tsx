@@ -16,9 +16,7 @@ export function Login() {
                 ease: [0, 0.71, 0.2, 1.01],
             }}
         >
-            <h2 className={styles['loginPanel__heading']}>
-                Zaloguj się do swojego konta
-            </h2>
+            <h2 className={styles['loginPanel__heading']}>Zaloguj się do swojego konta</h2>
             <LoginForm />
             <h6 className={styles['loginPanel__redirectionLogin']}>
                 Nie masz jeszcze konta?
