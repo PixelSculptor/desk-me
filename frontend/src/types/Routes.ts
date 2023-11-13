@@ -3,3 +3,5 @@ export enum ROUTES {
     Register = '/register',
     Login = '/login',
 }
+
+export type UNAUTHORIZED_ROUTES = '/login' | '/register';
