@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { getUserSuccess } from '@/store/user/user.reducer';
-import { isUserResponse } from '@/types/guards/isUserResponse';
-import { isClientError } from '@/types/guards/isClientError';
+import { registerUserStart } from '@/store/user/user.reducer';
+// import { isUserResponse } from '@/types/guards/isUserResponse';
+// import { isClientError } from '@/types/guards/isClientError';
 
 import { InputField } from '@components/InputField/InputField';
 import { Button } from '@components/Button/Button';
@@ -16,6 +16,7 @@ import { TSignUpSchema, signUpSchema } from './RegistrationForm.types';
 
 import styles from './RegistrationForm.module.scss';
 import { Loader } from '../Loader/Loader';
+import { selectErrorMessage, selectStatus } from '@/store/user/user.selector';
 
 export function RegistrationForm() {
     const {
@@ -27,9 +28,10 @@ export function RegistrationForm() {
         resolver: zodResolver(signUpSchema),
     });
 
-    const navigate = useNavigate();
+    const isLoading = useSelector(selectStatus);
+    const registrationError = useSelector(selectErrorMessage);
+    // const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [registrationError, setRegistrationError] = useState('');
 
     const onSubmit = async ({
         name,
@@ -38,36 +40,48 @@ export function RegistrationForm() {
         password,
         confirmPassword,
     }: TSignUpSchema) => {
-        const response = await fetch(
-            `${import.meta.env.VITE_API_URL}/auth/register`,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    name,
-                    surname,
-                    email,
-                    password,
-                    confirmPassword,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
+        dispatch(
+            registerUserStart({
+                email,
+                name,
+                surname,
+                password,
+                confirmPassword,
+            })
         );
-        const responseData: unknown = await response.json();
-
-        if (response.ok && isUserResponse(responseData)) {
-            dispatch(getUserSuccess(responseData));
-            navigate('/');
-        } else if (!response.ok && isClientError(responseData)) {
-            const { code, cause } = responseData;
-
-            setRegistrationError(`
-            ${cause}
-            Kod błędu: ${code}`);
-        } else {
-            setRegistrationError('Coś poszło nie tak');
+        if (!registrationError) {
+            // navigate('/');
         }
+        // const response = await fetch(
+        //     `${import.meta.env.VITE_API_URL}/auth/register`,
+        //     {
+        //         method: 'POST',
+        //         body: JSON.stringify({
+        //             name,
+        //             surname,
+        //             email,
+        //             password,
+        //             confirmPassword,
+        //         }),
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     }
+        // );
+        // const responseData: unknown = await response.json();
+
+        // if (response.ok && isUserResponse(responseData)) {
+        //     dispatch(getUserSuccess(responseData));
+        //     navigate('/');
+        // } else if (!response.ok && isClientError(responseData)) {
+        //     const { code, cause } = responseData;
+
+        //     setRegistrationError(`
+        //     ${cause}
+        //     Kod błędu: ${code}`);
+        // } else {
+        //     setRegistrationError('Coś poszło nie tak');
+        // }
         reset();
     };
     return (
@@ -125,7 +139,7 @@ export function RegistrationForm() {
                     type="submit"
                 >
                     {/* TODO: replace with proper loading value from redux */}
-                    {isSubmitting ? <Loader /> : 'Zarejestruj się'}
+                    {isLoading ? <Loader /> : 'Zarejestruj się'}
                 </Button>
                 {registrationError && (
                     <ErrorMessage message={registrationError} />

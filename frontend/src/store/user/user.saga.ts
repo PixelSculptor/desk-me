@@ -1,20 +1,23 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { put, takeLatest, call } from 'redux-saga/effects';
-// import { useNavigate } from "react-router-dom";
+import { put, takeLatest, call, all } from 'redux-saga/effects';
 
 import { UserCredentialTypes } from '@/types/UserTypes';
-import { GET_USER_BY_EMAIL } from './user.action.types';
-import { getUserFailure, getUserSuccess } from './user.reducer';
+import { USER_ACTION_TYPES } from './user.action.types';
+import {
+    getUserFailure,
+    getUserSuccess,
+    registerUserFailure,
+    registerUserSuccess,
+} from './user.reducer';
 import { isUserResponse } from '@/types/guards/isUserResponse';
 import { isClientError } from '@/types/guards/isClientError';
+import { TSignUpSchema } from '@/components/RegistrationForm/RegistrationForm.types';
 
 // login API request
-function* getUserByEmail({
+function* loginUser({
     payload: { email, password },
 }: PayloadAction<Pick<UserCredentialTypes, 'email' | 'password'>>) {
-    // const navigate = useNavigate();
     try {
-        console.log('saga user');
         const response: Response = yield call(() =>
             fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
                 method: 'POST',
@@ -31,23 +34,63 @@ function* getUserByEmail({
 
         if (response.ok && isUserResponse(responseData)) {
             yield put(getUserSuccess(responseData));
-            // dispatch(getUserSuccess(responseData));
-            // navigate('/');
         } else if (!response.ok && isClientError(responseData)) {
             const { cause, code } = responseData;
             const errorMessage = `${cause} Kod błędu: ${code}`;
             throw new Error(errorMessage);
-            // setLoginError(`${cause} Kod błędu: ${code}`);
         } else {
             throw new Error('Coś poszło nie tak');
-            // setLoginError('Coś poszło nie tak');
         }
     } catch (e: unknown) {
         if (e instanceof Error) yield put(getUserFailure(e.message));
     }
 }
 
+// register API request
+function* registerUser({
+    payload: { email, name, surname, password, confirmPassword },
+}: PayloadAction<TSignUpSchema>) {
+    try {
+        const response: Response = yield call(() => {
+            fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    name,
+                    surname,
+                    email,
+                    password,
+                    confirmPassword,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+        });
+        const responseData: unknown = yield response.json();
+
+        if (response.ok && isUserResponse(responseData)) {
+            // dispatch(getUserSuccess(responseData));
+            yield put(registerUserSuccess(responseData));
+        } else if (!response.ok && isClientError(responseData)) {
+            const { cause, code } = responseData;
+            const errorMessage = `${cause} Kod błędu: ${code}`;
+            throw new Error(errorMessage);
+        } else {
+            throw new Error('Coś poszło nie tak');
+        }
+    } catch (e: unknown) {
+        if (e instanceof Error) yield put(registerUserFailure(e.message));
+    }
+}
+
+function* onSignInStart() {
+    yield takeLatest(USER_ACTION_TYPES.SIGN_IN, loginUser);
+}
+
+function* onSignUpStart() {
+    yield takeLatest(USER_ACTION_TYPES.SIGN_UP, registerUser);
+}
+
 export default function* userSaga() {
-    console.log('run');
-    yield takeLatest(GET_USER_BY_EMAIL, getUserByEmail);
+    yield all([call(onSignInStart), call(onSignUpStart)]);
 }
