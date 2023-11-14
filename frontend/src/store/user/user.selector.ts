@@ -8,3 +8,13 @@ export const selectUser = createSelector(
     [selectUserReducer],
     (userSlice) => userSlice.user
 );
+
+export const selectStatus = createSelector(
+    [selectUserReducer],
+    (userSlice) => userSlice.isLoading
+);
+
+export const selectErrorMessage = createSelector(
+    [selectUserReducer],
+    (userSlice) => userSlice.error
+);

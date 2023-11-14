@@ -34,9 +34,7 @@ describe('Test for Login panel', () => {
         expect(header).toBeInTheDocument();
         expect(header).toHaveTextContent('Zaloguj się do swojego konta');
         expect(inviteToRegisterHeader).toBeInTheDocument();
-        expect(inviteToRegisterHeader).toHaveTextContent(
-            'Nie masz jeszcze konta? Zarejestruj się'
-        );
+        expect(inviteToRegisterHeader).toHaveTextContent('Nie masz jeszcze konta? Zarejestruj się');
     });
     it("navigates register panel when user clicks to router link with phrase 'Nie masz jeszcze konta? Zarejestruj się'", async () => {
         render(<MockLoginPanel />);
@@ -44,9 +42,7 @@ describe('Test for Login panel', () => {
 
         fireEvent.click(redirectLink);
         expect(redirectLink).toHaveTextContent('Zarejestruj się');
-        expect(
-            await screen.findByRole('heading', { level: 2 })
-        ).toHaveTextContent('Stwórz swoje konto już dzisiaj');
+        expect(await screen.findByRole('heading', { level: 2 })).toHaveTextContent('Stwórz swoje konto już dzisiaj');
     });
     it('Should move to dashboard view after proper credentials without any error messages below login form inputs', async () => {
         render(<MockLoginPanel />);
@@ -59,8 +55,6 @@ describe('Test for Login panel', () => {
         fireEvent.click(submit);
 
         // expect(await screen.findByText('Hasło jest wymagane')).toBeFalsy();
-        expect(
-            await screen.findByRole('heading', { level: 1 })
-        ).toHaveTextContent(`Witaj ${CORRECT_USER.name}`);
+        expect(await screen.findByRole('heading', { level: 1 })).toHaveTextContent(`Witaj ${CORRECT_USER.name}`);
     });
 });

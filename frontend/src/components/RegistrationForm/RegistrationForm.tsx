@@ -1,16 +1,15 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { setUser } from '@/store/user/user.reducer';
-import { isUserResponse } from '@/types/guards/isUserResponse';
-import { isClientError } from '@/types/guards/isClientError';
+import { registerUserStart } from '@/store/user/user.reducer';
+import { selectErrorMessage, selectStatus } from '@/store/user/user.selector';
 
 import { InputField } from '@components/InputField/InputField';
 import { Button } from '@components/Button/Button';
 import { ErrorMessage } from '@components/Error/Error';
+import { Loader } from '@components/Loader/Loader';
 
 import { TSignUpSchema, signUpSchema } from './RegistrationForm.types';
 
@@ -26,55 +25,29 @@ export function RegistrationForm() {
         resolver: zodResolver(signUpSchema),
     });
 
+    const isLoading = useSelector(selectStatus);
+    const registrationError = useSelector(selectErrorMessage);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [registrationError, setRegistrationError] = useState('');
 
-    const onSubmit = async ({
-        name,
-        surname,
-        email,
-        password,
-        confirmPassword,
-    }: TSignUpSchema) => {
-        const response = await fetch(
-            `${import.meta.env.VITE_API_URL}/auth/register`,
-            {
-                method: 'POST',
-                body: JSON.stringify({
-                    name,
-                    surname,
-                    email,
-                    password,
-                    confirmPassword,
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
+    const onSubmit = async ({ name, surname, email, password, confirmPassword }: TSignUpSchema) => {
+        dispatch(
+            registerUserStart({
+                email,
+                name,
+                surname,
+                password,
+                confirmPassword,
+            })
         );
-        const responseData: unknown = await response.json();
-
-        if (response.ok && isUserResponse(responseData)) {
-            dispatch(setUser(responseData));
+        if (!registrationError) {
             navigate('/');
-        } else if (!response.ok && isClientError(responseData)) {
-            const { code, cause } = responseData;
-
-            setRegistrationError(`
-            ${cause}
-            Kod błędu: ${code}`);
-        } else {
-            setRegistrationError('Coś poszło nie tak');
         }
         reset();
     };
     return (
         <section className={styles['registration']}>
-            <form
-                className={styles['registration__form']}
-                onSubmit={handleSubmit(onSubmit)}
-            >
+            <form className={styles['registration__form']} onSubmit={handleSubmit(onSubmit)}>
                 <InputField
                     id="name"
                     label="Imię"
@@ -118,16 +91,10 @@ export function RegistrationForm() {
                     register={register}
                     error={errors.confirmPassword}
                 />
-                <Button
-                    disabled={isSubmitting || isValidating}
-                    fullWidth
-                    type="submit"
-                >
-                    Zarejestruj się
+                <Button disabled={isSubmitting || isValidating} fullWidth type="submit">
+                    {isLoading ? <Loader /> : 'Zarejestruj się'}
                 </Button>
-                {registrationError && (
-                    <ErrorMessage message={registrationError} />
-                )}
+                {registrationError && <ErrorMessage message={registrationError} />}
             </form>
         </section>
     );
