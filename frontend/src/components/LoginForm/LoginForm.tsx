@@ -12,9 +12,10 @@ import { Loader } from '../Loader/Loader';
 
 import styles from './LoginForm.module.scss';
 import { selectErrorMessage, selectStatus } from '@/store/user/user.selector';
-// import { logIn } from '@/store/user/user.thunk';
+import type {} from 'redux-thunk/extend-redux';
 import { useAppDispatch } from '@/store/store';
-import { getUserStart } from '@/store/user/user.reducer';
+// import { getUserStart } from '@/store/user/user.reducer';
+import { logIn } from '@/store/user/user.thunk';
 
 export function LoginForm() {
     const {
@@ -34,9 +35,11 @@ export function LoginForm() {
 
     const onSubmit = ({ email, password }: TSignInSchema) => {
         // TODO: delete this old dispatch using redux saga
-        dispatch(getUserStart({ email, password }));
+        // dispatch(getUserStart({ email, password }));
         // new dispatch action with Redux-thunk
-        // dispatch(logIn({email, password}));
+
+        // Importujemy pusty typ "import type {} from 'redux-thunk/extend-redux';" zeby wskazac transpilatorowi, ze nie próbujemy importować JS Modul
+        dispatch(logIn({ email, password }));
         if (!loginError) {
             navigate('/');
         }

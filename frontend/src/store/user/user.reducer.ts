@@ -1,7 +1,7 @@
-import { UserCredentialTypes, UserResponse } from '@/types/UserTypes';
+import { UserResponse } from '@/types/UserTypes';
 import { TUserState, USER } from './user.action.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TSignUpSchema } from '@/components/RegistrationForm/RegistrationForm.types';
+// import { TSignUpSchema } from '@/components/RegistrationForm/RegistrationForm.types';
 import { logIn } from './user.thunk';
 
 const INITIAL_STATE: TUserState = {
@@ -35,7 +35,7 @@ const user_Slice = createSlice({
         });
         builder.addCase(logIn.rejected, (state, action) => {
             if (action.payload) {
-                state.error = action.payload;
+                state.error = `${action.payload}`;
             }
             state.error = action.error as string;
         });
@@ -50,11 +50,11 @@ const userSlice = createSlice({
     initialState: INITIAL_STATE,
     reducers: {
         getUserStart: (
-            state: TUserState,
-            {
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                payload: payload,
-            }: PayloadAction<Pick<UserCredentialTypes, 'email' | 'password'>>
+            state: TUserState
+            // {
+            //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            //     payload: payload,
+            // }: PayloadAction<Pick<UserCredentialTypes, 'email' | 'password'>>
         ) => {
             return {
                 ...state,
@@ -78,9 +78,9 @@ const userSlice = createSlice({
             };
         },
         registerUserStart: (
-            state: TUserState,
+            state: TUserState
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            payload: PayloadAction<TSignUpSchema>
+            // payload: PayloadAction<TSignUpSchema>
         ) => {
             return {
                 ...state,
