@@ -2,6 +2,7 @@ import { UserCredentialTypes, UserResponse } from '@/types/UserTypes';
 import { TUserState, USER } from './user.action.types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TSignUpSchema } from '@/components/RegistrationForm/RegistrationForm.types';
+import { logIn } from './user.thunk';
 
 const INITIAL_STATE: TUserState = {
     user: {
@@ -16,6 +17,34 @@ const INITIAL_STATE: TUserState = {
     error: '',
 };
 
+// const userReducer = createReducer(INITIAL_STATE, (builder) => {
+//     builder.addCase()
+// })
+
+const user_Slice = createSlice({
+    name: USER,
+    initialState: INITIAL_STATE,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder.addCase(logIn.pending, (state: TUserState) => {
+            state.isLoading = true;
+        });
+        builder.addCase(logIn.fulfilled, (state: TUserState, { payload }: PayloadAction<UserResponse>) => {
+            state.user = payload;
+            state.isLoading = false;
+        });
+        builder.addCase(logIn.rejected, (state, action) => {
+            if (action.payload) {
+                state.error = action.payload;
+            }
+            state.error = action.error as string;
+        });
+    },
+});
+
+export const user_Reducer = user_Slice.reducer;
+
+// old user reducer which is temporary held due to push changes to remote branch
 const userSlice = createSlice({
     name: USER,
     initialState: INITIAL_STATE,
@@ -33,10 +62,7 @@ const userSlice = createSlice({
                 error: '',
             };
         },
-        getUserSuccess: (
-            state: TUserState,
-            { payload }: PayloadAction<UserResponse>
-        ) => {
+        getUserSuccess: (state: TUserState, { payload }: PayloadAction<UserResponse>) => {
             return {
                 ...state,
                 user: payload,
@@ -44,10 +70,7 @@ const userSlice = createSlice({
                 error: '',
             };
         },
-        getUserFailure: (
-            state: TUserState,
-            { payload }: PayloadAction<string>
-        ) => {
+        getUserFailure: (state: TUserState, { payload }: PayloadAction<string>) => {
             return {
                 ...state,
                 isLoading: false,
@@ -65,10 +88,7 @@ const userSlice = createSlice({
                 error: '',
             };
         },
-        registerUserSuccess: (
-            state: TUserState,
-            { payload }: PayloadAction<UserResponse>
-        ) => {
+        registerUserSuccess: (state: TUserState, { payload }: PayloadAction<UserResponse>) => {
             return {
                 ...state,
                 isLoading: false,
