@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { Error } from 'mongoose';
+
 import { CustomRequest } from '../types/CustomRequest';
 import { CustomResponse } from '../types/CustomResponse';
 import {
@@ -10,8 +11,9 @@ import {
     IUserLoginBody,
     signInSchema,
 } from '../types/UserTypes';
-import { User } from '../model/user';
 import { hashInputText } from '../utils/encrypt';
+
+import { User } from '../model/user';
 
 dotenv.config();
 
