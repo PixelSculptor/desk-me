@@ -11,7 +11,7 @@ import { AuthRoute } from '@/views/routes/ConditionRoute/ConditionRoute';
 
 export const AuthHome = AuthRoute<unknown>(Home);
 
-export const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+export const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }: { children: JSX.Element }) => {
     const isAuthenticated = isAuth(useAppSelector(selectUser));
     const location = useLocation();
     if (!isAuthenticated) {
