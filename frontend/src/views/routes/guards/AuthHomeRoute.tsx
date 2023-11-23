@@ -14,6 +14,7 @@ export const AuthHome = AuthRoute<unknown>(Home);
 export const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }: { children: JSX.Element }) => {
     const isAuthenticated = isAuth(useAppSelector(selectUser));
     const location = useLocation();
+
     if (!isAuthenticated) {
         return <Navigate to={ROUTES.Login} state={{ from: location }} replace />;
     }
