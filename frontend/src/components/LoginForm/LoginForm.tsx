@@ -2,8 +2,13 @@ import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import type {} from 'redux-thunk/extend-redux';
 
 import { TSignInSchema, signInSchema } from '@components/LoginForm/LoginForm.types';
+
+import { selectErrorMessage, selectStatus } from '@/store/user/user.selector';
+import { useAppDispatch } from '@/store/store';
+import { logIn } from '@/store/user/user.thunk';
 
 import { InputField } from '../InputField/InputField';
 import { Button } from '../Button/Button';
@@ -11,11 +16,6 @@ import { ErrorMessage } from '../Error/Error';
 import { Loader } from '../Loader/Loader';
 
 import styles from './LoginForm.module.scss';
-import { selectErrorMessage, selectStatus } from '@/store/user/user.selector';
-import type {} from 'redux-thunk/extend-redux';
-import { useAppDispatch } from '@/store/store';
-// import { getUserStart } from '@/store/user/user.reducer';
-import { logIn } from '@/store/user/user.thunk';
 
 export function LoginForm() {
     const {
@@ -33,14 +33,9 @@ export function LoginForm() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const onSubmit = ({ email, password }: TSignInSchema) => {
-        // TODO: delete this old dispatch using redux saga
-        // dispatch(getUserStart({ email, password }));
-        // new dispatch action with Redux-thunk
-
-        // Importujemy pusty typ "import type {} from 'redux-thunk/extend-redux';" zeby wskazac transpilatorowi, ze nie próbujemy importować JS Modul
-        dispatch(logIn({ email, password }));
-        if (!loginError) {
+    const onSubmit = async ({ email, password }: TSignInSchema) => {
+        await dispatch(logIn({ email, password }));
+        if (!loginError && !isLoading) {
             navigate('/');
         }
         reset();

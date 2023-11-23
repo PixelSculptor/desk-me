@@ -37,6 +37,7 @@
         "redux-logger": "^3.0.6",
         "redux-persist": "^6.0.0",
         "redux-saga": "^1.2.3",
+        "redux-thunk": "^2.4.2",
         "reselect": "^4.1.8",
         "vitest-dom": "^0.1.1",
         "zod": "^3.22.2"

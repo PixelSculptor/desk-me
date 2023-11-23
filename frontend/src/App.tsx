@@ -4,14 +4,22 @@ import { AnimatePresence } from 'framer-motion';
 import { Registration } from '@/views/Registration/Registration';
 import { ROUTES } from './types/Routes';
 import { Login } from '@/views/Login/Login';
-import { AuthHome } from '@/views/routes/guards/AuthHomeRoute';
+import { ProtectedRoute } from './views/routes/guards/AuthHomeRoute';
+import { Home } from './views/Home/Home';
 
 function App() {
     const location = useLocation();
     return (
         <AnimatePresence>
             <Routes location={location} key={location.pathname}>
-                <Route path={ROUTES.Home} element={<AuthHome />} />
+                <Route
+                    path={ROUTES.Home}
+                    element={
+                        <ProtectedRoute>
+                            <Home />
+                        </ProtectedRoute>
+                    }
+                />
                 <Route path={ROUTES.Register} element={<Registration />} />
                 <Route path={ROUTES.Login} element={<Login />} />
             </Routes>
