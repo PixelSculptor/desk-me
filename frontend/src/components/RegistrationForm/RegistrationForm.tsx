@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { registerUserStart } from '@/store/user/user.reducer';
+// import { registerUserStart } from '@/store/user/user.reducer';
 import { selectErrorMessage, selectStatus } from '@/store/user/user.selector';
 
 import { InputField } from '@components/InputField/InputField';
@@ -27,24 +27,26 @@ export function RegistrationForm() {
 
     const isLoading = useSelector(selectStatus);
     const registrationError = useSelector(selectErrorMessage);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    // const navigate = useNavigate();
+    // const dispatch = useDispatch();
 
-    const onSubmit = async ({ name, surname, email, password, confirmPassword }: TSignUpSchema) => {
-        dispatch(
-            registerUserStart({
-                email,
-                name,
-                surname,
-                password,
-                confirmPassword,
-            })
-        );
-        if (!registrationError) {
-            navigate('/');
-        }
-        reset();
-    };
+    const onSubmit = async () =>
+        // { name, surname, email, password, confirmPassword }: TSignUpSchema
+        {
+            // dispatch(
+            //     registerUserStart({
+            //         email,
+            //         name,
+            //         surname,
+            //         password,
+            //         confirmPassword,
+            //     })
+            // );
+            // if (!registrationError) {
+            //     navigate('/');
+            // }
+            reset();
+        };
     return (
         <section className={styles['registration']}>
             <form className={styles['registration__form']} onSubmit={handleSubmit(onSubmit)}>
