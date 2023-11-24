@@ -1,8 +1,8 @@
 import { configureStore, ThunkDispatch, AnyAction } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
 import { persistStore, persistReducer } from 'redux-persist';
 import sessionStorage from 'redux-persist/es/storage/session';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 import { rootReducer } from './rootReducer';
 
