@@ -1,19 +1,18 @@
-import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type {} from 'redux-thunk/extend-redux';
 
-import { TSignInSchema, signInSchema } from '@components/LoginForm/LoginForm.types';
-
 import { selectErrorMessage, selectStatus } from '@/store/user/user.selector';
-import { useAppDispatch } from '@/store/store';
+import { useAppDispatch, useAppSelector } from '@/store/store';
 import { logIn } from '@/store/user/user.thunk';
 
-import { InputField } from '../InputField/InputField';
-import { Button } from '../Button/Button';
-import { ErrorMessage } from '../Error/Error';
-import { Loader } from '../Loader/Loader';
+import { InputField } from '@components/InputField/InputField';
+import { Button } from '@components/Button/Button';
+import { ErrorMessage } from '@components/Error/Error';
+import { Loader } from '@components/Loader/Loader';
+
+import { TSignInSchema, signInSchema } from '@components/LoginForm/LoginForm.types';
 
 import styles from './LoginForm.module.scss';
 
@@ -27,8 +26,8 @@ export function LoginForm() {
         resolver: zodResolver(signInSchema),
     });
 
-    const loginError = useSelector(selectErrorMessage);
-    const isLoading = useSelector(selectStatus);
+    const loginError = useAppSelector(selectErrorMessage);
+    const isLoading = useAppSelector(selectStatus);
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
