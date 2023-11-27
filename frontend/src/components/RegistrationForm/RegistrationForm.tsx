@@ -1,9 +1,7 @@
-// import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSelector } from 'react-redux';
+import type {} from 'redux-thunk/extend-redux';
 
-// import { registerUserStart } from '@/store/user/user.reducer';
 import { selectErrorMessage, selectStatus } from '@/store/user/user.selector';
 
 import { InputField } from '@components/InputField/InputField';
@@ -11,9 +9,12 @@ import { Button } from '@components/Button/Button';
 import { ErrorMessage } from '@components/Error/Error';
 import { Loader } from '@components/Loader/Loader';
 
-import { TSignUpSchema, signUpSchema } from './RegistrationForm.types';
+import { TSignUpSchema, signUpSchema } from '@components/RegistrationForm/RegistrationForm.types';
 
-import styles from './RegistrationForm.module.scss';
+import styles from '@components/RegistrationForm/RegistrationForm.module.scss';
+import { useNavigate } from 'react-router';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import { signUp } from '@/store/user/user.thunk';
 
 export function RegistrationForm() {
     const {
@@ -25,28 +26,20 @@ export function RegistrationForm() {
         resolver: zodResolver(signUpSchema),
     });
 
-    const isLoading = useSelector(selectStatus);
-    const registrationError = useSelector(selectErrorMessage);
-    // const navigate = useNavigate();
-    // const dispatch = useDispatch();
+    const isLoading = useAppSelector(selectStatus);
+    const registrationError = useAppSelector(selectErrorMessage);
 
-    const onSubmit = async () =>
-        // { name, surname, email, password, confirmPassword }: TSignUpSchema
-        {
-            // dispatch(
-            //     registerUserStart({
-            //         email,
-            //         name,
-            //         surname,
-            //         password,
-            //         confirmPassword,
-            //     })
-            // );
-            // if (!registrationError) {
-            //     navigate('/');
-            // }
-            reset();
-        };
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
+    const onSubmit = async ({ name, surname, email, password, confirmPassword }: TSignUpSchema) => {
+        await dispatch(signUp({ name, surname, email, password, confirmPassword }));
+
+        if (!registrationError && !isLoading) {
+            navigate('/');
+        }
+        reset();
+    };
     return (
         <section className={styles['registration']}>
             <form className={styles['registration__form']} onSubmit={handleSubmit(onSubmit)}>
