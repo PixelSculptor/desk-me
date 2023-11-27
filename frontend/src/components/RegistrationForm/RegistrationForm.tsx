@@ -1,8 +1,11 @@
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type {} from 'redux-thunk/extend-redux';
 
 import { selectErrorMessage, selectStatus } from '@/store/user/user.selector';
+import { useAppDispatch, useAppSelector } from '@/store/store';
+import { signUp } from '@/store/user/user.thunk';
 
 import { InputField } from '@components/InputField/InputField';
 import { Button } from '@components/Button/Button';
@@ -12,9 +15,6 @@ import { Loader } from '@components/Loader/Loader';
 import { TSignUpSchema, signUpSchema } from '@components/RegistrationForm/RegistrationForm.types';
 
 import styles from '@components/RegistrationForm/RegistrationForm.module.scss';
-import { useNavigate } from 'react-router';
-import { useAppDispatch, useAppSelector } from '@/store/store';
-import { signUp } from '@/store/user/user.thunk';
 
 export function RegistrationForm() {
     const {
