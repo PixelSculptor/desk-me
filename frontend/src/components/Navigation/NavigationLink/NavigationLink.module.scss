@@ -1,7 +1,7 @@
 @use '../../../styles/index.scss' as utils;
 
 .navlink {
-    // width: 100%;
+    width: 100%;
 
     color: utils.$background-color;
     text-align: center;
@@ -19,5 +19,9 @@
     @media screen and (min-width: 768px) {
         font-size: utils.$text-size-head5;
         text-align: left;
+
+        a {
+            justify-content: flex-start;
+        }
     }
 }

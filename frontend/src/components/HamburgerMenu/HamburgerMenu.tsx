@@ -7,7 +7,7 @@ import styles from './HamburgerMenu.module.scss';
 
 export function HamburgerMenu({ isMenuActive, toggleMenu }: HamburgerProps) {
     return (
-        <div className={styles.hamburger} onClick={toggleMenu}>
+        <div className={`${styles['hamburger']} ${isMenuActive && styles['hamburger--active']}`} onClick={toggleMenu}>
             {isMenuActive ? <AiIcons.AiOutlineClose /> : <FaIcons.FaBars />}
         </div>
     );
