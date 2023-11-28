@@ -2,15 +2,19 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 import { Registration } from '@/views/Registration/Registration';
-import { ROUTES } from './types/Routes';
 import { Login } from '@/views/Login/Login';
-import { ProtectedRoute } from './views/routes/guards/ProtectedRoute';
-import { Home } from './views/Home/Home';
+import { ProtectedRoute } from '@views/routes/guards/ProtectedRoute';
+import { Home } from '@views/Home/Home';
+
+import { Navigation } from '@components/Navigation/Navigation';
+
+import { ROUTES } from './types/Routes';
 
 function App() {
     const location = useLocation();
     return (
         <AnimatePresence>
+            <Navigation />
             <Routes location={location} key={location.pathname}>
                 <Route
                     path={ROUTES.Home}

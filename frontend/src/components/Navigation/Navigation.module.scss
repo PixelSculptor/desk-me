@@ -1,0 +1,36 @@
+@use '../../styles/index.scss' as utils;
+
+.navigation {
+    background-color: utils.$primary-color;
+    position: relative;
+
+    &__list {
+        @include utils.display_flex(column, center, center, 3rem);
+
+        position: absolute;
+        height: 90vh;
+        height: 90svh;
+        width: 100vw;
+        width: 100svw;
+        padding: 1rem;
+
+        list-style-type: none;
+        transform: translateX(-100%);
+        transition: 0.5s ease-in-out;
+        background-color: utils.$primary-color;
+
+        &--active {
+            transform: translateX(0);
+            transition: 0.5s ease-in-out;
+        }
+
+        @media screen and (min-width: 768px) {
+            width: fit-content;
+
+            justify-content: flex-start;
+            padding: 1.5rem;
+            border-top-right-radius: 0.75rem;
+            border-bottom-right-radius: 0.75rem;
+        }
+    }
+}

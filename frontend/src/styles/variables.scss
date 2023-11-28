@@ -1,10 +1,11 @@
 // color palette
-$primary-color: #3d84a8;
-$secondary-color: #f4a261;
+$primary-color: #0f425b;
+$primary-color--light: #76cdf8;
+$secondary-color: #ffcca3;
 $background-color: #f2f2f2;
 $text-color: #333333;
 $accent-color: #e76f51;
-$accent-color--darker: #c55e45;
+$accent-color--darker: #af533c;
 $highlight-color: #ffd700;
 $neutral-color: #ffffff;
 $border-color: #cccccc;
@@ -23,3 +24,9 @@ $text-size-head4: 2.063rem;
 $text-size-head3: 2.938rem;
 $text-size-head2: 3.225rem;
 $text-size-head1: 4.513rem;
+
+// font weights
+$font-weight-regular: 400;
+$font-weight-normal: 500;
+$font-weight-semibold: 700;
+$font-weight-bold: 800;
