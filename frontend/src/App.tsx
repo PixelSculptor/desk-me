@@ -14,15 +14,13 @@ function App() {
     const location = useLocation();
     return (
         <AnimatePresence>
+            <Navigation />
             <Routes location={location} key={location.pathname}>
                 <Route
                     path={ROUTES.Home}
                     element={
                         <ProtectedRoute>
-                            <>
-                                <Navigation />
-                                <Home />
-                            </>
+                            <Home />
                         </ProtectedRoute>
                     }
                 />

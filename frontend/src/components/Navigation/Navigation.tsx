@@ -1,11 +1,18 @@
+import { useLayoutEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import { useAuth } from '@/hooks/useAuth';
+import { useToggle } from '@/hooks/useToggle';
+
 import { NavigationLink } from './NavigationLink/NavigationLink';
 import { NAV_LINKS } from './NavigationData';
 import { HamburgerMenu } from '@components/HamburgerMenu/HamburgerMenu';
-import { useToggle } from '@/hooks/useToggle';
+
+import { ROUTES } from '@/types/Routes';
 
 import styles from './Navigation.module.scss';
 
-export function Navigation() {
+function NavigationSidebar() {
     const { value: menu, toggleFlag } = useToggle(false);
     return (
         <nav className={styles['navigation']}>
@@ -17,4 +24,19 @@ export function Navigation() {
             </ul>
         </nav>
     );
+}
+
+export function Navigation() {
+    const { value: showNav, toggleFlag: toggleNav } = useToggle(false);
+    const { isAuthenticated } = useAuth();
+    const location = useLocation();
+
+    useLayoutEffect(() => {
+        if ((location.pathname === ROUTES.Login || location.pathname === ROUTES.Register) && isAuthenticated) {
+            toggleNav(false);
+        } else {
+            toggleNav(true);
+        }
+    }, [showNav, location, isAuthenticated]);
+    return <>{showNav && <NavigationSidebar />}</>;
 }
