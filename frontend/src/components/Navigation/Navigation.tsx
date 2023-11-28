@@ -1,16 +1,22 @@
-import { useAuth } from '@/hooks/useAuth';
+import { useState } from 'react';
 
 import { NavigationLink } from './NavigationLink/NavigationLink';
-import { ROUTES } from '@/types/Routes';
+import { HamburgerMenu } from '@components/HamburgerMenu/HamburgerMenu';
+import { NAV_LINKS } from './NavigationData';
+
+import styles from './Navigation.module.scss';
 
 export function Navigation() {
-    const isAuthenticated = useAuth();
+    const [menu, setMenu] = useState(false);
+
+    const toggleMenu = () => setMenu(!menu);
     return (
-        <nav className="navigation">
-            <ul>
-                <NavigationLink navLinkText="Dashboard" path={ROUTES.Home} />
-                <NavigationLink navLinkText="Moje rezerwacje" path={ROUTES.Bookings} />
-                <NavigationLink navLinkText={isAuthenticated ? 'Wyloguj się' : 'Zaloguj się'} path={ROUTES.Login} />
+        <nav className={styles['navigation']}>
+            <HamburgerMenu toggleMenu={toggleMenu} isMenuActive={menu} />
+            <ul className={`${styles['navigation__list']} ${menu && styles['navigation__list--active']}`}>
+                {NAV_LINKS.map(({ Icon, path, text }) => (
+                    <NavigationLink Icon={Icon} path={path} navLinkText={text} key={path} />
+                ))}
             </ul>
         </nav>
     );

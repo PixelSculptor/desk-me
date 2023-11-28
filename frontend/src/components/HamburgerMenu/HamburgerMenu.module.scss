@@ -1,0 +1,30 @@
+@use '../../styles/index.scss' as utils;
+
+.hamburger {
+    @include utils.display_flex(row, center, flex-start);
+
+    height: 10vh;
+    height: 10svh;
+
+    width: fit-content;
+
+    font-size: utils.$text-size-head3;
+    padding: 1rem;
+    color: utils.$secondary-color;
+
+    & > svg {
+        animation: fade 0.5s ease-in forwards;
+    }
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
