@@ -1,18 +1,16 @@
-import { Link } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+
+import { NavigationLink } from './NavigationLink/NavigationLink';
+import { ROUTES } from '@/types/Routes';
 
 export function Navigation() {
+    const isAuthenticated = useAuth();
     return (
         <nav className="navigation">
             <ul>
-                <li>
-                    <Link to="/register">Zarejestruj się</Link>
-                </li>
-                <li>
-                    <Link to="/login">Zaloguj się</Link>
-                </li>
-                <li>
-                    <Link to="myreservations">Moje rezerwacje</Link>
-                </li>
+                <NavigationLink navLinkText="Dashboard" path={ROUTES.Home} />
+                <NavigationLink navLinkText="Moje rezerwacje" path={ROUTES.Bookings} />
+                <NavigationLink navLinkText={isAuthenticated ? 'Wyloguj się' : 'Zaloguj się'} path={ROUTES.Login} />
             </ul>
         </nav>
     );
