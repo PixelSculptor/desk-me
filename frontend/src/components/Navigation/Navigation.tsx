@@ -1,4 +1,4 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { useAuth } from '@/hooks/useAuth';
@@ -31,8 +31,8 @@ export function Navigation() {
     const { isAuthenticated } = useAuth();
     const location = useLocation();
 
-    useLayoutEffect(() => {
-        if ((location.pathname === ROUTES.Login || location.pathname === ROUTES.Register) && isAuthenticated) {
+    useEffect(() => {
+        if ((location.pathname === ROUTES.Login || location.pathname === ROUTES.Register) && !isAuthenticated) {
             toggleNav(false);
         } else {
             toggleNav(true);
