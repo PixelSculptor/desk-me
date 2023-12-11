@@ -9,7 +9,7 @@ import { Home } from '@views/Home/Home';
 import { Navigation } from '@components/Navigation/Navigation';
 
 import { ROUTES } from './types/Routes';
-import NotFound from './views/NotFound/NotFound';
+import { NotFound } from './views/NotFound/NotFound';
 
 function App() {
     const location = useLocation();

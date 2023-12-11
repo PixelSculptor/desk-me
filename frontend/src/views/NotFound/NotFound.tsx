@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './NotFound.module.scss';
 
-function NotFound() {
+export function NotFound() {
     return (
         <div className={styles['notFoundView']}>
             <h2 className={styles['notFoundView__headerAlert']}>Nie znaleziono strony</h2>
@@ -13,5 +13,3 @@ function NotFound() {
         </div>
     );
 }
-
-export default NotFound;
