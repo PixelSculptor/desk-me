@@ -1,0 +1,37 @@
+@use '../../styles/index.scss' as utils;
+
+.notFoundView {
+    @include utils.display_flex(column);
+
+    width: fit-content;
+    border-radius: utils.$border-radius--normal;
+    border: 4px dashed utils.$primary-color;
+    margin: auto;
+    padding: 1.5rem 1.5rem;
+    background-color: utils.$neutral-color;
+
+    &__headerAlert,
+    &__errorCode {
+        color: utils.$error-color;
+        text-align: center;
+    }
+
+    &__headerAlert {
+        font-size: utils.$text-size-head2;
+    }
+
+    &__errorCode {
+        font-size: utils.$text-size-head3;
+    }
+
+    &__fallbackLink {
+        text-decoration: underline;
+        color: utils.$primary-color;
+        transition: all 0.3s ease-in;
+
+        &:hover {
+            background-color: utils.$primary-color;
+            color: utils.$neutral-color;
+        }
+    }
+}

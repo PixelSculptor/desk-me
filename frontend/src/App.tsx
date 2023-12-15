@@ -9,6 +9,7 @@ import { Home } from '@views/Home/Home';
 import { Navigation } from '@components/Navigation/Navigation';
 
 import { ROUTES } from './types/Routes';
+import { NotFound } from './views/NotFound/NotFound';
 
 function App() {
     const location = useLocation();
@@ -26,6 +27,7 @@ function App() {
                 />
                 <Route path={ROUTES.Register} element={<Registration />} />
                 <Route path={ROUTES.Login} element={<Login />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </AnimatePresence>
     );
