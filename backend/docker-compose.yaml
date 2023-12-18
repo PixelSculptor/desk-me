@@ -15,9 +15,19 @@ services:
       MONGODB_PASSWORD: ${MONGO_PASSWORD}
     ports:
       - 27017:27017
+    networks:
+      - mongodb-network
     volumes:
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
       - db-data:/data/db
 volumes:
   db-data:
     driver: local
+
+networks:
+  mongodb-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.21.0.0/16"
