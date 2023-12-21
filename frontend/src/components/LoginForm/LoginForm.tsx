@@ -16,6 +16,8 @@ import { TSignInSchema, signInSchema } from '@components/LoginForm/LoginForm.typ
 
 import styles from './LoginForm.module.scss';
 
+// TODO: Write tests for this form
+
 export function LoginForm() {
     const {
         register,
