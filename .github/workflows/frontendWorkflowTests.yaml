@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/checkout@v3
         with:
-          node-version: '18.x'
+          node-version: '18.16.x'
       - name: Go to Frontend Dir
         run: cd ./frontend
       - name: Install Dependencies
