@@ -13,5 +13,15 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      
-      - name
+      - name: Setup Node.js Environment
+        uses: actions/checkout@v3
+        with:
+          node-version: '18.x'
+      - name: Install Dependencies
+        run: cd ./frontend && npm ci
+      - name: Run Tests
+        run: npm run test
+      - name: Run Eslint
+        run: npm run lint
+      - name: Check build project
+        run: npm run build
