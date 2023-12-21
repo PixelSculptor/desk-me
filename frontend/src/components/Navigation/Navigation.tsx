@@ -37,6 +37,6 @@ export function Navigation() {
         } else {
             toggleNav(true);
         }
-    }, [showNav, location, isAuthenticated]);
+    }, [showNav, location, isAuthenticated, toggleNav]);
     return <>{showNav && <NavigationSidebar />}</>;
 }
