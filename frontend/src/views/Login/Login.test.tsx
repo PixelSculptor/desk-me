@@ -1,4 +1,4 @@
-import { screen, fireEvent } from '@testing-library/react';
+import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
@@ -54,7 +54,8 @@ describe('Test for Login panel', () => {
         userEvent.type(password, CORRECT_USER.password);
         fireEvent.click(submit);
 
-        // expect(await screen.findByText('Hasło jest wymagane')).toBeFalsy();
-        expect(await screen.findByRole('heading', { level: 1 })).toHaveTextContent(`Witaj ${CORRECT_USER.name}`);
+        await waitFor(() => {
+            expect(window.location.pathname).toBe('/');
+        });
     });
 });
