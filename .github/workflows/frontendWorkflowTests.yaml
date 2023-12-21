@@ -1,0 +1,35 @@
+name: Run Unit Tests for frontend
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+jobs:
+  test-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Setup Node.js Environment
+        uses: actions/checkout@v3
+        with:
+          node-version: '18.16.x'
+      - name: Install dependencies
+        run: |
+          cd ./frontend 
+          npm ci
+      - name: Run Frontend Unit Tests
+        run: |
+          cd ./frontend
+          npm run test
+      - name: Run Linter
+        run: |
+          cd ./frontend
+          npm run lint
+      - name: Build project
+        run: |
+          cd ./frontend
+          npm run build
