@@ -1,12 +1,13 @@
-import { screen, fireEvent, waitFor } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { render } from '@testing-library/react';
+
+import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import App from '@/App';
 
 import { store } from '../../store/store';
-import userEvent from '@testing-library/user-event';
 
 const MockLoginPanel = () => {
     return (
@@ -31,6 +32,7 @@ describe('Test for Login panel', () => {
         const inviteToRegisterHeader = screen.getByRole('heading', {
             level: 6,
         });
+
         expect(header).toBeInTheDocument();
         expect(header).toHaveTextContent('Zaloguj się do swojego konta');
         expect(inviteToRegisterHeader).toBeInTheDocument();
@@ -41,6 +43,7 @@ describe('Test for Login panel', () => {
         const redirectLink = screen.getByRole('link');
 
         fireEvent.click(redirectLink);
+
         expect(redirectLink).toHaveTextContent('Zarejestruj się');
         expect(await screen.findByRole('heading', { level: 2 })).toHaveTextContent('Stwórz swoje konto już dzisiaj');
     });
@@ -52,10 +55,13 @@ describe('Test for Login panel', () => {
 
         userEvent.type(email, CORRECT_USER.email);
         userEvent.type(password, CORRECT_USER.password);
+
         fireEvent.click(submit);
 
-        await waitFor(() => {
+        waitFor(() => {
             expect(window.location.pathname).toBe('/');
+            const heading = screen.findByRole('heading', { level: 2 });
+            expect(heading).toHaveTextContent('Witaj Adam');
         });
     });
 });
