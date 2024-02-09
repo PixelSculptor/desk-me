@@ -8,6 +8,9 @@
 .LSOverride
 .idea
 
+# envs
+.env
+
 # Icon must end with two \r
 Icon
 

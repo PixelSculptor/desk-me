@@ -18,8 +18,24 @@ services:
     networks:
       - mongodb-network
     volumes:
-      - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+      - ./backend/mongo-init.sh:/docker-entrypoint-initdb.d/backend/mongo-init.sh:ro
       - db-data:/data/db
+  apiServer:
+    image: node:18-alpine
+    container_name: apiBackendServer
+    restart: always
+    env_file:
+      - .env
+    working_dir: /app/backend
+    environment:
+      API_PORT: ${API_PORT}
+    ports:
+      - ${API_PORT}:${API_PORT}
+    networks:
+      - mongodb-network
+    command: sh -c "npm install && npm run start:dev"
+    volumes:
+      - ./backend:/app/backend
 volumes:
   db-data:
     driver: local
