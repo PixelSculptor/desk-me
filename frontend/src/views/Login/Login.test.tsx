@@ -20,8 +20,9 @@ const MockLoginPanel = () => {
 };
 
 const CORRECT_USER = {
-    name: 'Adam',
-    email: 'xyz@gmail.com',
+    name: 'John',
+    surname: 'Doe',
+    email: 'joe-doe@gmail.com',
     password: 'P@ssw0rd1!',
 };
 
@@ -61,7 +62,7 @@ describe('Test for Login panel', () => {
         waitFor(() => {
             expect(window.location.pathname).toBe('/');
             const heading = screen.findByRole('heading', { level: 2 });
-            expect(heading).toHaveTextContent('Witaj Adam');
+            expect(heading).toHaveTextContent('Witaj Joe');
         });
     });
 });
