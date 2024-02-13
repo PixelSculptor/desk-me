@@ -13,8 +13,8 @@ import App from './App';
 import './styles/index.scss';
 
 async function enableMocking() {
-    if (import.meta.env.NODE_ENV === 'development') {
-        browserWorker.start();
+    if (import.meta.env.MODE !== 'development') {
+        return;
     }
     return browserWorker.start();
 }
