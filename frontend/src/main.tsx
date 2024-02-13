@@ -6,17 +6,29 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from '@store/store';
 
+import { browserWorker } from './mocks/browser';
+
 import App from './App';
+
 import './styles/index.scss';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <BrowserRouter>
-                    <App />
-                </BrowserRouter>
-            </PersistGate>
-        </Provider>
-    </React.StrictMode>
-);
+async function enableMocking() {
+    if (import.meta.env.NODE_ENV === 'development') {
+        browserWorker.start();
+    }
+    return browserWorker.start();
+}
+
+enableMocking().then(() => {
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+        <React.StrictMode>
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                    <BrowserRouter>
+                        <App />
+                    </BrowserRouter>
+                </PersistGate>
+            </Provider>
+        </React.StrictMode>
+    );
+});
