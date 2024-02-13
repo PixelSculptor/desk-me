@@ -1,4 +1,4 @@
-import { screen, render, fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -39,19 +39,37 @@ describe('Unit tests for Login Form Component', () => {
         });
     });
 
-    it('Inputs after filled properly should be empty', () => {
+    it('Inputs after filled properly should be empty', async () => {
         render(<MockLoginForm />);
         const email = screen.getByPlaceholderText('adam.kowalski@gmail.com');
         const password = screen.getByPlaceholderText('********');
         const loginButton = screen.getByRole('button');
 
-        userEvent.type(email, 'joe-doe@gmail.com');
-        userEvent.type(password, 'P@ssw0rd1!');
-        userEvent.click(loginButton);
+        await userEvent.type(email, 'joe-doe@gmail.com');
+        await userEvent.type(password, 'P@ssw0rd1!');
+        await userEvent.click(loginButton);
 
         const inputs = screen.getAllByRole('textbox');
         inputs.forEach((input) => {
             expect(input).toHaveValue('');
+        });
+    });
+
+    it('Should display error message when user type wrong format email', async () => {
+        render(<MockLoginForm />);
+        const email = screen.getByPlaceholderText('adam.kowalski@gmail.com');
+        const password = screen.getByPlaceholderText('********');
+
+        await userEvent.type(email, 'joe-doe.com');
+        await userEvent.type(password, 'P@ssw0rd1!');
+
+        const loginButton = screen.getByRole('button');
+
+        await userEvent.click(loginButton);
+
+        waitFor(async () => {
+            const errorMessage = await screen.findByText('Niepoprawny format adresu e-mail');
+            expect(errorMessage).toBeInTheDocument();
         });
     });
 });
