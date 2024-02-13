@@ -59,10 +59,13 @@ describe('Test for Login panel', () => {
 
         fireEvent.click(submit);
 
-        waitFor(() => {
+        const error = await screen.queryByTestId('errorMessage');
+        expect(error).not.toBeInTheDocument();
+
+        waitFor(async () => {
             expect(window.location.pathname).toBe('/');
-            const heading = screen.findByRole('heading', { level: 2 });
-            expect(heading).toHaveTextContent('Witaj Joe');
+            const heading = await screen.findByRole('heading', { level: 2 });
+            expect(heading).toHaveTextContent('Witaj John');
         });
     });
 });

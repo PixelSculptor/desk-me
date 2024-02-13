@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw';
 
 import { UserResponse } from '@/types/UserTypes';
 
-const API_URL = import.meta.env.API_URL as string;
+const API_URL = import.meta.env.VITE_API_URL as string;
 
 export const handlers = [
     http.post(`${API_URL}/auth/login`, async () => {
