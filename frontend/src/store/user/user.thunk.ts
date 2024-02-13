@@ -32,6 +32,9 @@ export const logIn = createAsyncThunk(
                 throw new Error('Coś poszło nie tak');
             }
         } catch (err: unknown) {
+            if (err instanceof Error) {
+                return rejectWithValue(err.message);
+            }
             return rejectWithValue(err as string);
         }
     }
@@ -60,6 +63,9 @@ export const signUp = createAsyncThunk(
                 throw new Error('Coś poszło nie tak');
             }
         } catch (err: unknown) {
+            if (err instanceof Error) {
+                return rejectWithValue(err.message);
+            }
             return rejectWithValue(err as string);
         }
     }

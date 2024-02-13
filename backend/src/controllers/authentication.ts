@@ -130,7 +130,6 @@ export const login = async (
         const user = await User.findOne({ email });
 
         if (!user) {
-            console.log('error');
             throw new Error('Użytkownik nie istnieje');
         }
 

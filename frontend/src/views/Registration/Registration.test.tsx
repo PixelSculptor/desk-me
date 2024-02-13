@@ -20,7 +20,7 @@ const MockRegistration = () => {
 const CORRECT_USER: TSignUpSchema = {
     name: 'John',
     surname: 'Doe',
-    email: 'xyz@gmail.com',
+    email: 'joe-doe@gmail.com',
     password: 'P@ssw0rd1!',
     confirmPassword: 'P@ssw0rd1!',
 };

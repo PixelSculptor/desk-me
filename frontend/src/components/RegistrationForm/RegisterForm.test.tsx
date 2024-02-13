@@ -60,7 +60,7 @@ describe('Unit tests for Registration Form Component', () => {
 
         const inputs = screen.getAllByRole('textbox');
         inputs.forEach((input) => {
-            expect(input).toHaveTextContent('');
+            expect(input).toHaveValue('');
         });
     });
     it('should render communicate when passwords are not same', async () => {
@@ -73,7 +73,7 @@ describe('Unit tests for Registration Form Component', () => {
 
         await userEvent.type(name, 'John');
         await userEvent.type(surname, 'Doe');
-        await userEvent.type(email, 'john.doe@gmail.com');
+        await userEvent.type(email, 'joe-doe@gmail.com');
         await userEvent.type(password, 'P@ssword1!');
         await userEvent.type(confirmPassword, 'P@ssword11');
 
@@ -92,17 +92,13 @@ describe('Unit tests for Registration Form Component', () => {
 
         await userEvent.type(name, 'John');
         await userEvent.type(surname, 'Doe');
-        await userEvent.type(email, 'john.doe@gmail.com');
+        await userEvent.type(email, 'joe-doe@gmail.com');
         await userEvent.type(password, 'Short!');
         await userEvent.type(confirmPassword, 'Short!');
 
         await userEvent.click(screen.getByRole('button'));
-        const error = await screen.findByText(
-            'Hasło powinno mieć co najmniej 10 znaków'
-        );
-        expect(error).toHaveTextContent(
-            'Hasło powinno mieć co najmniej 10 znaków'
-        );
+        const error = await screen.findByText('Hasło powinno mieć co najmniej 10 znaków');
+        expect(error).toHaveTextContent('Hasło powinno mieć co najmniej 10 znaków');
     });
 
     it('should render error message when password is too short and confirm password does not match', async () => {
@@ -120,13 +116,9 @@ describe('Unit tests for Registration Form Component', () => {
         await userEvent.type(confirmPassword, 'P@ssword1!');
 
         await userEvent.click(screen.getByRole('button'));
-        const errorShort = await screen.findByText(
-            'Hasło powinno mieć co najmniej 10 znaków'
-        );
+        const errorShort = await screen.findByText('Hasło powinno mieć co najmniej 10 znaków');
         const errorMatch = await screen.findByText('Hasła muszą się zgadzać');
-        expect(errorShort).toHaveTextContent(
-            'Hasło powinno mieć co najmniej 10 znaków'
-        );
+        expect(errorShort).toHaveTextContent('Hasło powinno mieć co najmniej 10 znaków');
         expect(errorMatch).toHaveTextContent('Hasła muszą się zgadzać');
     });
 });
