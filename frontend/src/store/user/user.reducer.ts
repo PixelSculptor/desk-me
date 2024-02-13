@@ -33,8 +33,10 @@ const userSlice = createSlice({
             builder.addCase(logIn.rejected, (state, action) => {
                 if (action.payload) {
                     state.error = `${action.payload}`;
+                } else {
+                    state.error = action.error as string;
                 }
-                state.error = action.error as string;
+                state.isLoading = false;
             }),
             // action thunks for registering:
             builder.addCase(signUp.pending, (state: TUserState) => {
@@ -48,8 +50,10 @@ const userSlice = createSlice({
                 const { payload, error } = action;
                 if (action.payload) {
                     state.error = payload as string;
+                } else {
+                    state.error = error as string;
                 }
-                state.error = error as string;
+                state.isLoading = false;
             });
     },
 });
