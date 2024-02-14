@@ -35,6 +35,6 @@ describe('Unit tests for Home view', () => {
     it('Should render Home view with greetings.', () => {
         render(<HomeMockView />);
         const greetings = screen.getByRole('heading', { level: 2 });
-        expect(greetings).toHaveTextContent(`Witaj ${MOCK_USER.name}`);
+        expect(greetings).toHaveTextContent(new RegExp(`^Witaj ${MOCK_USER.name}$`));
     });
 });
