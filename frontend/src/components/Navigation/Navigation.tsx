@@ -19,7 +19,7 @@ function NavigationSidebar() {
             <HamburgerMenu toggleMenu={toggleFlag} isMenuActive={menu} />
             <ul className={`${styles['navigation__list']} ${menu && styles['navigation__list--active']}`}>
                 {NAV_LINKS.map(({ Icon, path, text }) => (
-                    <NavigationLink Icon={Icon} path={path} navLinkText={text} key={path} />
+                    <NavigationLink Icon={Icon} path={path} navLinkText={text} key={path} toggleMenu={toggleFlag} />
                 ))}
             </ul>
         </nav>
