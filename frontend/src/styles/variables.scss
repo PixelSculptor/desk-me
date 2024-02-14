@@ -19,7 +19,6 @@ $border-color: #cccccc;
 $error-color: #e63946;
 $success-color: #4caf50;
 
-// TODO: add clamp font size config for rest of text types
 // font size
 $text-size-caption: clamp(0.75rem, utils.calculate-vw(12), 0.875rem); // 12px
 $text-size-button: clamp(0.875rem, utils.calculate-vw(14), 1rem); // 14px
