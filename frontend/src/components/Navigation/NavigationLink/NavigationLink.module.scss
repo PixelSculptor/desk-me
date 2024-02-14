@@ -3,20 +3,21 @@
 .navlink {
     width: 100%;
 
-    color: utils.$background-color;
+    color: utils.$neutral-color;
     text-align: center;
     font-size: utils.$text-size-head4;
     font-weight: utils.$font-weight-normal;
     transition: 0.3s ease-in-out;
     padding: 0.5rem;
+    cursor: pointer;
 
     &:hover {
-        color: utils.$text-color;
+        color: utils.$secondary-color--light;
         background-color: utils.$primary-color--light;
         border-radius: 0.75rem;
 
         a.active {
-            color: utils.$accent-color--darker;
+            color: utils.$secondary-color--light;
         }
     }
 

@@ -28,16 +28,20 @@ If you are developing a production application, we recommend updating the config
 
 
 ## Color palette - description:
-- #3D84A8 (teal blue) - for buttons, call-to-action elements, and headings,
-- #F4A261 (light orange) - for secondary buttons, highlights, and important notifications,
-- #F2F2F2 (light gray) - for the background to provide a clean and unobtrusive canvas for content,
-- #333333 (dark gray) - for text, labels, and descriptions, ensuring readability and contrast with the background,
-- #E76F51 (terracotta) - for critical callouts, notifications, and icons to draw attention,
-- #FFD700 (gold) - for exceptional elements like selected dates or outstanding bookings. It adds a touch of elegance,
-- #FFFFFF (white) for sections with minimal distraction, such as headers and footers,
-- #CCCCCC (light gray) - for borders and dividers to maintain a sense of structure
-- #E63946 (red) - error color,
-- #4CAF50 (green) - success color
+- ![#0a3b92](https://placehold.co/15x15/0a3b92/0a3b92.png) `#0a3b92` - Primary color
+- ![#115dbd](https://placehold.co/15x15/115dbd/115dbd.png) `#115dbd` - Light primary color
+- ![#bd3872](https://placehold.co/15x15/bd3872/bd3872.png) `#bd3872` - Secondary color
+- ![#e04387](https://placehold.co/15x15/e04387/e04387.png) `#e04387` - Light secondary color
+- ![#f2f2f2](https://placehold.co/15x15/f2f2f2/f2f2f2.png) `#f2f2f2` - Background color
+- ![#333333](https://placehold.co/15x15/333333/333333.png) `#333333` - Dark text color
+- ![#f2f2f2](https://placehold.co/15x15/f2f2f2/f2f2f2.png) `#f2f2f2` - Light text color
+- ![#69a50e](https://placehold.co/15x15/69a50e/69a50e.png) `#69a50e` - Accent color
+- ![#3e7b05](https://placehold.co/15x15/3e7b05/3e7b05.png) `#3e7b05` - Darker accent color
+- ![#ffd700](https://placehold.co/15x15/ffd700/ffd700.png) `#ffd700` - Highlight color
+- ![#ffffff](https://placehold.co/15x15/ffffff/ffffff.png) `#ffffff` - Neutral color
+- ![#cccccc](https://placehold.co/15x15/cccccc/cccccc.png) `#cccccc` - Border color
+- ![#e63946](https://placehold.co/15x15/e63946/e63946.png) `#e63946` - Error color
+- ![#4caf50](https://placehold.co/15x15/4caf50/4caf50.png) `#4caf50` - Success color
 
 # Favicon:
 Favicon was created [here](https://icons8.com)

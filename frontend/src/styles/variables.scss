@@ -1,11 +1,15 @@
+@use 'utils.scss' as utils;
+
 // color palette
-$primary-color: #0f425b;
-$primary-color--light: #76cdf8;
-$secondary-color: #ffcca3;
+$primary-color: #0a3b92;
+$primary-color--light: #115dbd;
+$secondary-color: #bd3872;
+$secondary-color--light: #e04387;
 $background-color: #f2f2f2;
-$text-color: #333333;
-$accent-color: #e76f51;
-$accent-color--darker: #af533c;
+$text-color--dark: #333333;
+$text-color--light: #f2f2f2;
+$accent-color: #69a50e;
+$accent-color--darker: #3e7b05;
 $highlight-color: #ffd700;
 $neutral-color: #ffffff;
 $border-color: #cccccc;
@@ -14,17 +18,16 @@ $border-color: #cccccc;
 $error-color: #e63946;
 $success-color: #4caf50;
 
-// TODO: add clamp font size config for rest of text types
 // font size
-$text-size-caption: 0.75rem;
-$text-size-button: 1.025rem;
-$text-size-body: 1rem;
-$text-size-head6: 1.188rem;
-$text-size-head5: 1.438rem;
-$text-size-head4: 2.063rem;
-$text-size-head3: clamp(1.3rem, 0.922rem + 1.68vw, 2.938rem);
-$text-size-head2: clamp(1.5rem, 0.4865rem + 2.2821vw, 3.225rem);
-$text-size-head1: 4.513rem;
+$text-size-caption: clamp(0.75rem, utils.calculate-vw(12), 0.875rem); // 12px
+$text-size-button: clamp(0.875rem, utils.calculate-vw(14), 1rem); // 14px
+$text-size-body: clamp(1rem, utils.calculate-vw(16), 1.25rem); // 16px
+$text-size-head6: clamp(1rem, utils.calculate-vw(18), 1.25rem); // 18px
+$text-size-head5: clamp(1.25rem, utils.calculate-vw(20), 1.5rem); // 20px
+$text-size-head4: clamp(1.5rem, utils.calculate-vw(26), 1.75rem); // 26px
+$text-size-head3: clamp(1.75rem, utils.calculate-vw(28), 2rem); // 28px
+$text-size-head2: clamp(2rem, utils.calculate-vw(32), 2.5rem); // 32px
+$text-size-head1: clamp(2.5rem, utils.calculate-vw(40), 3rem); // 40px
 
 // font weights
 $font-weight-regular: 400;
