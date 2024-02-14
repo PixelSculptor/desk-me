@@ -1,1 +1,6 @@
-@forward './variables.scss';
+@use 'sass:math';
+$viewport-width: 1440;
+
+@function calculate-vw($px-value) {
+    @return math.div($px-value, $viewport-width) * 100 * 1vw;
+}
