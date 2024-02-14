@@ -26,6 +26,26 @@ h2,
 h3,
 h4,
 h5,
+h6,
+p,
+small,
+caption,
+button {
+    &::selection {
+        background: variables.$highlight-color;
+        color: variables.$text-color--dark;
+    }
+    &::-moz-selection {
+        background: variables.$highlight-color;
+        color: variables.$text-color--dark;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
 h6 {
     font-weight: 500;
     line-height: 1.2;
