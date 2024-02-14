@@ -28,6 +28,7 @@ If you are developing a production application, we recommend updating the config
 
 
 ## Color palette - description:
+- ![#0a3b92](https://placehold.co/15x15/0a3b92/0a3b92.png) `#f03c15`
 - #3D84A8 (teal blue) - for buttons, call-to-action elements, and headings,
 - #F4A261 (light orange) - for secondary buttons, highlights, and important notifications,
 - #F2F2F2 (light gray) - for the background to provide a clean and unobtrusive canvas for content,
